@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReservaSalas
+namespace ReservaSalas.Servicios
 {
     class AnularReservaService
     {

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReservaSalas
+namespace ReservaSalas.Modelos
 {
     class Reserva
     {
+        public int ID { get; set; }
         public DateTime Fecha { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }

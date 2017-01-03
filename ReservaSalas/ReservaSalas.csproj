@@ -43,21 +43,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnularReservaService.cs" />
-    <Compile Include="CompletarEncuestaService.cs" />
-    <Compile Include="Empleado.cs" />
-    <Compile Include="IEmpleadosRepository.cs" />
-    <Compile Include="IReservasRepository.cs" />
-    <Compile Include="ISalasRepository.cs" />
+    <Compile Include="Servicios\AnularReservaService.cs" />
+    <Compile Include="Servicios\CompletarEncuestaService.cs" />
+    <Compile Include="Modelos\Empleado.cs" />
+    <Compile Include="Interfaces\IEmpleadosRepository.cs" />
+    <Compile Include="Interfaces\IReservasRepository.cs" />
+    <Compile Include="Interfaces\ISalasRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Reserva.cs" />
-    <Compile Include="ReservarService.cs" />
-    <Compile Include="Sala.cs" />
-    <Compile Include="ValidarReservaService.cs" />
+    <Compile Include="Modelos\Reserva.cs" />
+    <Compile Include="Servicios\ReservarService.cs" />
+    <Compile Include="Modelos\Sala.cs" />
+    <Compile Include="Servicios\ValidarReservaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
