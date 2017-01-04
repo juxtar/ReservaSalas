@@ -23,12 +23,12 @@ namespace ReservaSalas.Modelos
 
         public Sala() { }
 
-        public Sala(string Nombre, int Capacidad, string Ubicacion, TipoSala Tipo)
+        public Sala(string nombre, int capacidad, string ubicacion, TipoSala tipo)
         {
-            this.Nombre = Nombre;
-            this.Capacidad = Capacidad;
-            this.Ubicacion = Ubicacion;
-            this.Tipo = Tipo;
+            this.Nombre = nombre;
+            this.Capacidad = capacidad;
+            this.Ubicacion = ubicacion;
+            this.Tipo = tipo;
         }
     }
 }

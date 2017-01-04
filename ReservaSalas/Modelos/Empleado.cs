@@ -14,10 +14,10 @@ namespace ReservaSalas.Modelos
 
         public Empleado() { }
 
-        public Empleado(int Legajo, string Descripcion)
+        public Empleado(int legajo, string descripcion)
         {
-            this.Legajo = Legajo;
-            this.Descripcion = Descripcion;
+            this.Legajo = legajo;
+            this.Descripcion = descripcion;
         }
     }
 }
