@@ -1,0 +1,18 @@
+<td-layout #layout sidenavTitle="Reserva de Salas">
+    <md-nav-list menu-items>
+        <a md-list-item *ngFor="let item of routes"
+            [routerLink]="[item.route]" (click)="layout.close()">
+            <md-icon>{{item.icon}}</md-icon>
+            {{item.title}}
+        </a>
+        <a md-list-item>
+            <md-icon>library_books</md-icon>
+            Docs
+        </a>
+    </md-nav-list>
+    <td-layout-nav toolbarTitle="Reserva de Salas">
+        <td-layout-card-over cardWidth="75">
+            <router-outlet></router-outlet>
+        </td-layout-card-over>
+    </td-layout-nav>
+</td-layout>
