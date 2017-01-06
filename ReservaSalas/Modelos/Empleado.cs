@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReservaSalas.Modelos
 {
-    class Empleado
+    public class Empleado
     {
         public int ID { get; set; }
         public int Legajo { get; set; }

@@ -7,7 +7,7 @@ using ReservaSalas.Modelos;
 
 namespace ReservaSalas.Interfaces
 {
-    interface IEmpleadosRepository
+    public interface IEmpleadosRepository
     {
         IEnumerable<Empleado> Get();
         bool TryGet(int id, out Empleado empleado);

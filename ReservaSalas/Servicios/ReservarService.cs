@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReservaSalas.Servicios
 {
-    class ReservarService
+    public class ReservarService
     {
     }
 }

@@ -7,7 +7,7 @@ using ReservaSalas.Modelos;
 
 namespace ReservaSalas.Interfaces
 {
-    interface ISalasRepository
+    public interface ISalasRepository
     {
         IEnumerable<Sala> Get();
         bool TryGet(int id, out Sala sala);

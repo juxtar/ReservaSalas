@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace ReservaSalas.Modelos
 {
-    enum TipoSala
+    public enum TipoSala
     {
         Capacitacion,
         Reunion,
         Auditorio
     }
 
-    class Sala
+    public class Sala
     {
         public int ID { get; set; }
         public string Nombre { get; set; }

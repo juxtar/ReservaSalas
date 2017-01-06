@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReservaSalas.Servicios
 {
-    class CompletarEncuestaService
+    public class CompletarEncuestaService
     {
     }
 }
