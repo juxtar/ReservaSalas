@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReservaSalas", "ReservaSalas\ReservaSalas.csproj", "{C63B50CE-0F9B-49DF-9DD7-70590A3E09EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApi\WebApi.csproj", "{FB245129-FE57-4C4A-B43C-ED6B015737F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{82F358CF-6777-4584-B8FF-472B65D3F7EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,10 @@ Global
 		{C63B50CE-0F9B-49DF-9DD7-70590A3E09EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C63B50CE-0F9B-49DF-9DD7-70590A3E09EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C63B50CE-0F9B-49DF-9DD7-70590A3E09EF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB245129-FE57-4C4A-B43C-ED6B015737F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB245129-FE57-4C4A-B43C-ED6B015737F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB245129-FE57-4C4A-B43C-ED6B015737F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB245129-FE57-4C4A-B43C-ED6B015737F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F358CF-6777-4584-B8FF-472B65D3F7EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F358CF-6777-4584-B8FF-472B65D3F7EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F358CF-6777-4584-B8FF-472B65D3F7EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F358CF-6777-4584-B8FF-472B65D3F7EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
