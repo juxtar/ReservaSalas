@@ -56,7 +56,9 @@
   <ItemGroup>
     <Compile Include="EmpleadosRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ReservaSalas.cs" />
+    <Compile Include="ReservaSalasDb.cs" />
+    <Compile Include="ReservasRepository.cs" />
+    <Compile Include="SalasRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
