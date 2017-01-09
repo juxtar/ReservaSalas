@@ -1,8 +1,8 @@
-# Reserva de Salas - Capa de Presentación
+# Capa de Presentación
 
 Capa de Presentación de SPA para el Proyecto de Reserva de Salas.
 
-El mismo fue generado con `[angular-cli](https://github.com/angular/angular-cli)` y utiliza el framework web [Covalent](https://teradata.github.io/covalent/).
+El mismo fue generado con [angular-cli](https://github.com/angular/angular-cli) y utiliza el framework web [Covalent](https://teradata.github.io/covalent/).
 
 ## Development server
 
