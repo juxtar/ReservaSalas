@@ -10,26 +10,26 @@ namespace DataAccess
 {
     public class SalasRepository : ISalasRepository
     {
-        ReservaSalasDb db;
+        IDataSession db;
 
-        public SalasRepository()
+        public SalasRepository(IDataSession context)
         {
-            db = new ReservaSalasDb();
+            db = context;
         }
 
         public Sala Add(Sala sala)
         {
-            Sala retorno = db.Salas.Add(sala);
+            Sala retorno = db.Set<Sala>().Add(sala);
             db.SaveChanges();
             return retorno;
         }
 
         public bool Delete(int id)
         {
-            Sala sala = db.Salas.Find(id);
+            Sala sala = db.Set<Sala>().Find(id);
             if (sala != null)
             {
-                db.Salas.Remove(sala);
+                db.Set<Sala>().Remove(sala);
                 db.SaveChanges();
                 return true;
             }
@@ -38,18 +38,18 @@ namespace DataAccess
 
         public IEnumerable<Sala> Get()
         {
-            return db.Salas.ToArray();
+            return db.Set<Sala>().ToArray();
         }
 
         public bool TryGet(int id, out Sala sala)
         {
-            sala = db.Salas.Find(id);
+            sala = db.Set<Sala>().Find(id);
             return sala != null;
         }
 
         public bool Update(Sala sala)
         {
-            var original = db.Salas.Find(sala.ID);
+            var original = db.Set<Sala>().Find(sala.ID);
 
             if (original != null)
             {

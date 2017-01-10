@@ -10,26 +10,26 @@ namespace DataAccess
 {
     public class EmpleadosRepository : IEmpleadosRepository
     {
-        ReservaSalasDb db;
+        IDataSession db;
 
-        public EmpleadosRepository()
+        public EmpleadosRepository(IDataSession context)
         {
-            db = new ReservaSalasDb();
+            db = context;
         }
 
         public Empleado Add(Empleado empleado)
         {
-            Empleado retorno = db.Empleados.Add(empleado);
+            Empleado retorno = db.Set<Empleado>().Add(empleado);
             db.SaveChanges();
             return retorno;
         }
 
         public bool Delete(int id)
         {
-            Empleado empleado = db.Empleados.Find(id);
+            Empleado empleado = db.Set<Empleado>().Find(id);
             if (empleado != null)
             {
-                db.Empleados.Remove(empleado);
+                db.Set<Empleado>().Remove(empleado);
                 db.SaveChanges();
                 return true;
             }
@@ -38,18 +38,18 @@ namespace DataAccess
 
         public IEnumerable<Empleado> Get()
         {
-            return db.Empleados.ToArray();
+            return db.Set<Empleado>().ToArray();
         }
 
         public bool TryGet(int id, out Empleado empleado)
         {
-            empleado = db.Empleados.Find(id);
+            empleado = db.Set<Empleado>().Find(id);
             return empleado != null;
         }
 
         public bool Update(Empleado empleado)
         {
-            var original = db.Empleados.Find(empleado.ID);
+            var original = db.Set<Empleado>().Find(empleado.ID);
 
             if (original != null)
             {
