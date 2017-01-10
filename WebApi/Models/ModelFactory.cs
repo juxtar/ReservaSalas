@@ -31,7 +31,7 @@ namespace WebApi.Models
                 EmailConfirmed = appUser.EmailConfirmed,
                 Roles = _AppUserManager.GetRolesAsync(appUser.Id).Result,
                 Claims = _AppUserManager.GetClaimsAsync(appUser.Id).Result,
-                Empleado = appUser.Empleado
+                Empleado_ID = appUser.Empleado_ID
             };
         }
     }
@@ -44,7 +44,7 @@ namespace WebApi.Models
         public string FullName { get; set; }
         public string Email { get; set; }
         public bool EmailConfirmed { get; set; }
-        public Empleado Empleado { get; set; }
+        public int? Empleado_ID { get; set; }
         public IList<string> Roles { get; set; }
         public IList<System.Security.Claims.Claim> Claims { get; set; }
     }

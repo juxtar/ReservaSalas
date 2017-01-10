@@ -141,16 +141,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201701101509412_InitialCreate.cs" />
+    <Compile Include="Migrations\201701101509412_InitialCreate.Designer.cs">
+      <DependentUpon>201701101509412_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201701101237353_InitialCreate.cs" />
-    <Compile Include="Migrations\201701101237353_InitialCreate.Designer.cs">
-      <DependentUpon>201701101237353_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountBindingModels.cs" />
@@ -183,8 +183,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201701101237353_InitialCreate.resx">
-      <DependentUpon>201701101237353_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201701101509412_InitialCreate.resx">
+      <DependentUpon>201701101509412_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

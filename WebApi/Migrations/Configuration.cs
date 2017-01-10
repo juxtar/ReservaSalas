@@ -8,14 +8,14 @@ namespace WebApi.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<WebApi.Models.AppContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<AppContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(WebApi.Models.AppContext context)
+        protected override void Seed(AppContext context)
         {
             var manager = new UserManager<UserModel>(new UserStore<UserModel>(new AppContext()));
 
