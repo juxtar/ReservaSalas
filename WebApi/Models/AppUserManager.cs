@@ -20,6 +20,12 @@ namespace WebApi.Models
             var appDbContext = context.Get<AppContext>();
             var appUserManager = new AppUserManager(new UserStore<UserModel>(appDbContext));
 
+            appUserManager.UserValidator = new UserValidator<UserModel>(appUserManager)
+            {
+                AllowOnlyAlphanumericUserNames = true,
+                RequireUniqueEmail = true
+            };
+
             return appUserManager;
         }
     }

@@ -6,6 +6,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 using ReservaSalas.Modelos;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace WebApi.Models
 {
@@ -23,5 +25,12 @@ namespace WebApi.Models
 
         [ForeignKey("Empleado_ID")]
         public Empleado Empleado { get; set; }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(AppUserManager userManager, string authenticationType)
+        {
+            var userIdentity = await userManager.CreateIdentityAsync(this, authenticationType);
+            // Add custom user claims here
+            return userIdentity;
+        }
     }
 }
