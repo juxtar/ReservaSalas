@@ -46,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Excepciones\AnulacionInvalidaException.cs" />
+    <Compile Include="Excepciones\NoExistenteException.cs" />
+    <Compile Include="Excepciones\ReservaInvalidaException.cs" />
+    <Compile Include="Excepciones\SalaNoDisponibleException.cs" />
+    <Compile Include="Excepciones\YaExistenteException.cs" />
     <Compile Include="Servicios\AnularReservaService.cs" />
     <Compile Include="Servicios\CompletarEncuestaService.cs" />
     <Compile Include="Modelos\Empleado.cs" />

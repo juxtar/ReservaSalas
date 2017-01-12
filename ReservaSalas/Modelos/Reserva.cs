@@ -9,7 +9,6 @@ namespace ReservaSalas.Modelos
     public class Reserva
     {
         public int ID { get; set; }
-        public DateTime Fecha { get; set; }
         public DateTime Inicio { get; set; }
         public DateTime Fin { get; set; }
         public Empleado Responsable { get; set; }
@@ -19,5 +18,6 @@ namespace ReservaSalas.Modelos
         public bool Servicio { get; set; } // Sólo permitido en Salas Reunion
         public bool Almuerzo { get; set; } // Sólo permitido en Salas Reunion
         public bool Proyector { get; set; }
+        public bool Anulada { get; set; }
     }
 }
