@@ -168,6 +168,7 @@
     <Compile Include="Filters\NoExistenteExceptionFilterAttribute.cs" />
     <Compile Include="Filters\ReservaInvalidaExceptionFilterAttribute.cs" />
     <Compile Include="Filters\SalaNoDisponibleExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\YaExistenteExceptionFilterAttribute.cs" />
     <Compile Include="Migrations\201701101509412_InitialCreate.cs" />
     <Compile Include="Migrations\201701101509412_InitialCreate.Designer.cs">
       <DependentUpon>201701101509412_InitialCreate.cs</DependentUpon>

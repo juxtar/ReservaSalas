@@ -9,6 +9,7 @@ using ReservaSalas.Modelos;
 using WebApi.Models;
 using DataAccess;
 using ReservaSalas.Excepciones;
+using WebApi.Filters;
 
 namespace WebApi.Controllers
 {
@@ -31,42 +32,51 @@ namespace WebApi.Controllers
         }
 
         // GET: api/Salas/5
+        [NoExistenteExceptionFilter]
         [Authorize]
         public Sala Get(int id)
         {
             Sala sala;
             if (!repository.TryGet(id, out sala))
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+                throw new NoExistenteException("Sala no existente.");
             return sala;
         }
 
         // POST: api/Salas
+        [YaExistenteExceptionFilter]
         [Authorize]
         public HttpResponseMessage Post([FromBody]Sala sala)
         {
-            try
-            {
-                sala = repository.Add(sala);
-            }
-            catch (YaExistenteException e)
-            {
-                throw new HttpResponseException(Request.CreateResponse(HttpStatusCode.Conflict, e));
-            }
+            if (!ModelState.IsValid)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            sala = repository.Add(sala);
             var response = Request.CreateResponse(HttpStatusCode.Created, sala);
             response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + sala.ID.ToString());
             return response;
         }
 
         // PUT: api/Salas/5
+        [YaExistenteExceptionFilter]
+        [NoExistenteExceptionFilter]
         [Authorize]
-        public void Put(int id, [FromBody]string value)
+        public Sala Put(int id, [FromBody]Sala sala)
         {
+            if (!ModelState.IsValid)
+                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));
+            sala.ID = id;
+            if (!repository.Update(sala))
+                throw new NoExistenteException("Sala no existente.");
+            return sala;
         }
 
         // DELETE: api/Salas/5
+        [NoExistenteExceptionFilter]
         [Authorize]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            if (!repository.Delete(id))
+                throw new NoExistenteException("Sala no existente.");
+            return Ok();
         }
     }
 }

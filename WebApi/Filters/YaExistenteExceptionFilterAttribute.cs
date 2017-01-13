@@ -6,16 +6,16 @@ using System.Web.Http.Filters;
 
 namespace WebApi.Filters
 {
-    public class ReservaInvalidaExceptionFilterAttribute : ExceptionFilterAttribute
+    public class YaExistenteExceptionFilterAttribute : ExceptionFilterAttribute
     {
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
-            if (actionExecutedContext.Exception is ReservaInvalidaException)
+            if (actionExecutedContext.Exception is YaExistenteException)
             {
-                actionExecutedContext.Response = new HttpResponseMessage(HttpStatusCode.BadRequest)
+                actionExecutedContext.Response = new HttpResponseMessage(HttpStatusCode.Conflict)
                 {
-                    Content = new ObjectContent<ReservaInvalidaException>(
-                        actionExecutedContext.Exception as ReservaInvalidaException,
+                    Content = new ObjectContent<YaExistenteException>(
+                        actionExecutedContext.Exception as YaExistenteException,
                         new JsonMediaTypeFormatter()
                     )
                 };
