@@ -10,18 +10,18 @@ using WebApi.Models;
 
 namespace WebApi.Controllers
 {
-    [RoutePrefix("api/accounts")]
+    [RoutePrefix("api/Accounts")]
     public class AccountsController : BaseApiController
     {
         [Authorize]
-        [Route("users")]
+        [Route("Users")]
         public IHttpActionResult GetUsers()
         {
             return Ok(this.UserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
         }
 
         [Authorize]
-        [Route("user/{id:guid}", Name = "GetUserById")]
+        [Route("User/{id:guid}", Name = "GetUserById")]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
             var user = await this.UserManager.FindByIdAsync(Id);
@@ -36,7 +36,7 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        [Route("user/{username}")]
+        [Route("User/{username}")]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await this.UserManager.FindByNameAsync(username);
@@ -51,7 +51,7 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [Route("create")]
+        [Route("Create")]
         public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)
         {
             if (!ModelState.IsValid)
@@ -104,7 +104,7 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        [Route("user/{id:guid}")]
+        [Route("User/{id:guid}")]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
