@@ -18,7 +18,7 @@ namespace ReservaSalas.Servicios
             repository = repo;
         }
 
-        public bool Validar(Reserva r)
+        public void Validar(Reserva r)
         {
             if (!ValidarSala(r))
                 throw new NoExistenteException("Sala no existente.");
@@ -38,7 +38,6 @@ namespace ReservaSalas.Servicios
                 throw new ReservaInvalidaException("La sala no admite la cantidad de personas especificada.");
             if (!ValidarDisponibilidad(r))
                 throw new SalaNoDisponibleException("La sala especificada ya se encuentra reservada para ese horario.");
-            return true;
         }
         
         private bool ValidarDisponibilidad(Reserva reserva)

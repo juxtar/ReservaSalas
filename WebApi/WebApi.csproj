@@ -163,9 +163,18 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\ReservasController.cs" />
+    <Compile Include="Controllers\SalasController.cs" />
+    <Compile Include="Filters\NoExistenteExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\ReservaInvalidaExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\SalaNoDisponibleExceptionFilterAttribute.cs" />
     <Compile Include="Migrations\201701101509412_InitialCreate.cs" />
     <Compile Include="Migrations\201701101509412_InitialCreate.Designer.cs">
       <DependentUpon>201701101509412_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701121422356_InitialCreate1.cs" />
+    <Compile Include="Migrations\201701121422356_InitialCreate1.Designer.cs">
+      <DependentUpon>201701121422356_InitialCreate1.cs</DependentUpon>
     </Compile>
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
@@ -209,6 +218,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201701101509412_InitialCreate.resx">
       <DependentUpon>201701101509412_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701121422356_InitialCreate1.resx">
+      <DependentUpon>201701121422356_InitialCreate1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -28,8 +28,7 @@ namespace ReservaSalas.Servicios
             r.Responsable = responsable;
 
             var validarSvc = new ValidarReservaService(ReservasRep);
-            if (!validarSvc.Validar(r))
-                return null;
+            validarSvc.Validar(r);
             return ReservasRep.Add(r);
         }
     }

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReservaSalas.Interfaces;
 using ReservaSalas.Modelos;
+using ReservaSalas.Excepciones;
 
 namespace DataAccess
 {
@@ -19,6 +20,9 @@ namespace DataAccess
 
         public Sala Add(Sala sala)
         {
+            var consulta = db.Set<Sala>().Select(s => s.Nombre == sala.Nombre);
+            if (consulta.Any())
+                throw new YaExistenteException("Ya existe una sala con el mismo nombre.");
             Sala retorno = db.Set<Sala>().Add(sala);
             db.SaveChanges();
             return retorno;
