@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { Sala } from '../sala';
+import { Sala } from '../_models';
 
 @Component({
   selector: 'app-sala-detail',
@@ -12,7 +12,7 @@ export class SalaDetailComponent implements OnInit {
   sala: Sala;
 
   get detail() {
-    if (this.sala.id == 1) {
+    if (this.sala.ID == 1) {
       return "Disponible"
     }
     else {

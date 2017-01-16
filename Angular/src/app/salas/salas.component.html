@@ -1,16 +1,18 @@
-<div layout="column" layout-margin>
-  <md-card-title>Salas</md-card-title>
-  <div>
-    <button md-raised-button color="accent">Nueva Sala</button>
-  <div>
-  <td-data-table
-    [data]="data"
-    [columns]="columns"
-    [selectable]="true"
-    [multiple]="false"
-    [sortable]="true"
-    (rowSelect)="selected($event)">
-  </td-data-table>
-  <app-sala-detail *ngIf="selectedRow" [sala]="selectedRow"></app-sala-detail>
-  <div class="pad-xs"></div>
-</div>
+<td-layout-card-over cardWidth="75">
+  <div layout="column" layout-margin>
+    <md-card-title>Salas</md-card-title>
+    <div>
+      <button md-raised-button color="accent">Nueva Sala</button>
+    </div>
+    <td-data-table
+      [data]="data"
+      [columns]="columns"
+      [selectable]="true"
+      [multiple]="false"
+      [sortable]="true"
+      (rowSelect)="selected($event)">
+    </td-data-table>
+    <app-sala-detail *ngIf="selectedRow" [sala]="selectedRow"></app-sala-detail>
+    <div class="pad-xs"></div>
+  </div>
+</td-layout-card-over>

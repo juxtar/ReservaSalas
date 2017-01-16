@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { ITdDataTableColumn, ITdDataTableSelectEvent } from '@covalent/core';
 
-import { Sala } from '../sala';
+import { Sala } from '../_models';
 
 @Component({
   selector: 'app-salas',
@@ -12,15 +12,20 @@ import { Sala } from '../sala';
 export class SalasComponent implements OnInit {
 
   data: Sala[] = [
-    { id: 1, nombre: 'Centro 1', capacidad: 12, ubicacion: 'Centro', tipo: 'Reunion' },
-    { id: 2, nombre: 'Sistemas 2', capacidad: 8, ubicacion: 'Sistemas', tipo: 'Reunion' }
+    { ID: 1, Nombre: 'Centro 1', Capacidad: 12, Ubicacion: 'Centro', Tipo: 1 },
+    { ID: 2, Nombre: 'Sistemas 2', Capacidad: 8, Ubicacion: 'Sistemas', Tipo: 2 },
+    { ID: 1, Nombre: 'Centro 1', Capacidad: 12, Ubicacion: 'Centro', Tipo: 0 },
+    { ID: 1, Nombre: 'Centro 1', Capacidad: 12, Ubicacion: 'Centro', Tipo: 4 }
   ];
 
   columns: ITdDataTableColumn[] = [
-    { name: 'nombre', label: 'Nombre' },
-    { name: 'capacidad', label: 'Capacidad' },
-    { name: 'ubicacion', label: 'Ubicacion' },
-    { name: 'tipo', label: 'Tipo de Sala' },
+    { name: 'Nombre', label: 'Nombre' },
+    { name: 'Capacidad', label: 'Capacidad' },
+    { name: 'Ubicacion', label: 'Ubicacion' },
+    { name: 'Tipo', label: 'Tipo de Sala', numeric: false,
+        format: t => t == 0 ? 'Capacitación' : 
+                     t == 1 ? 'Reunión' :
+                     t == 2 ? 'Auditorio' : '-' },
   ];
 
   selectedRow: Sala = null;
