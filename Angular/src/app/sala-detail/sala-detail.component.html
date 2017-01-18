@@ -3,10 +3,10 @@
     <div layout="row" layout-align="start center">
       <div>{{sala.Nombre}}</div>
       <div flex></div>
-      <button md-icon-button style="margin: auto 0">
+      <button md-icon-button class="btn-margin">
         <md-icon>edit</md-icon>
       </button>
-      <button md-icon-button style="margin: auto 0">
+      <button md-icon-button class="btn-margin" (click)="confirmarEliminar()">
         <md-icon>delete</md-icon>
       </button>
     </div>

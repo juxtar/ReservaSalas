@@ -29,8 +29,6 @@ namespace WebApi
 
             ConfigureWebApi(httpConfig);
 
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-
             app.UseWebApi(httpConfig);
         }
 

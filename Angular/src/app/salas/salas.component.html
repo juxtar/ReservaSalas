@@ -1,18 +1,30 @@
 <td-layout-card-over cardWidth="75">
   <div layout="column" layout-margin>
-    <md-card-title>Salas</md-card-title>
-    <div>
-      <button md-raised-button color="accent">Nueva Sala</button>
+    <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
+      <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
+        <span class="md-title">Salas</span>
+      </span>
+      <td-search-box #searchBox backIcon="arrow_back" class="push-right-sm" placeholder="Buscar" (searchDebounce)="search($event)" flex>
+      </td-search-box>
+      <button md-icon-button mdTooltip="Nueva Sala" mdTooltipPosition="below">
+        <md-icon>add</md-icon>
+      </button>
     </div>
     <td-data-table
-      [data]="data"
+      [data]="filteredData"
       [columns]="columns"
       [selectable]="true"
       [multiple]="false"
       [sortable]="true"
+      [sortBy]="sortBy"
+      [sortOrder]="sortOrder"
+      (sortChange)="sort($event)"
       (rowSelect)="selected($event)">
     </td-data-table>
-    <app-sala-detail *ngIf="selectedRow" [sala]="selectedRow"></app-sala-detail>
+    <td-paging-bar [pageSizes]="[3, 6, 9]" [total]="filteredTotal" (change)="page($event)"></td-paging-bar>
+    <app-sala-detail *ngIf="selectedRow"
+                    [sala]="selectedRow"
+                    (onActualizar)="fetchSalas()"></app-sala-detail>
     <div class="pad-xs"></div>
   </div>
 </td-layout-card-over>
