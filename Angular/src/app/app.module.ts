@@ -12,8 +12,9 @@ import { SalasComponent } from './salas/salas.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { SalaDetailComponent } from './sala-detail/sala-detail.component';
 import { LoginComponent } from './login/login.component';
-import { AuthenticationService } from './_services';
+import { AuthenticationService, SalasService } from './_services';
 import { AuthGuard } from './_guards';
+import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthGuard } from './_guards';
     SalasComponent,
     ReservasComponent,
     SalaDetailComponent,
-    LoginComponent
+    LoginComponent,
+    SalaFormularioComponent
   ],
   imports: [
     AppRoutingModule,
@@ -33,7 +35,8 @@ import { AuthGuard } from './_guards';
   ],
   providers: [
     AuthGuard,
-    AuthenticationService
+    AuthenticationService,
+    SalasService
   ],
   bootstrap: [AppComponent]
 })

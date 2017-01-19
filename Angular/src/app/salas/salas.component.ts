@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ITdDataTableColumn, ITdDataTableSelectEvent,
-  TdDataTableSortingOrder, IPageChangeEvent,
+  TdDataTableSortingOrder, IPageChangeEvent, TdLoadingService,
   TdDialogService, TdDataTableService, ITdDataTableSortChangeEvent } from '@covalent/core';
 
 import { Sala } from '../_models';
@@ -10,8 +10,7 @@ import { SalasService } from '../_services/salas.service';
 @Component({
   selector: 'app-salas',
   templateUrl: './salas.component.html',
-  styleUrls: ['./salas.component.scss'],
-  providers: [ SalasService ]
+  styleUrls: ['./salas.component.scss']
 })
 export class SalasComponent implements OnInit {
 
@@ -47,7 +46,8 @@ export class SalasComponent implements OnInit {
   constructor(
     private salasSvc: SalasService,
     private dialogSvc: TdDialogService,
-    private tableSvc: TdDataTableService
+    private tableSvc: TdDataTableService,
+    private loadingSvc: TdLoadingService
   ) { }
 
   ngOnInit() {
@@ -55,11 +55,13 @@ export class SalasComponent implements OnInit {
   }
 
   fetchSalas() {
+    this.registerLoading();
     this.salasSvc.getSalas()
       .then((salas: Sala[]) => {
         this.data = salas;
         this.filter();
         this.selectedRow = null;
+        this.resolveLoading();
       })
       .catch(response => this.dialogSvc.openAlert({
         message: response.json().Message,
@@ -93,5 +95,13 @@ export class SalasComponent implements OnInit {
     newData = this.tableSvc.sortData(newData, this.sortBy, this.sortOrder);
     newData = this.tableSvc.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
+  }
+
+  registerLoading(): void {
+    this.loadingSvc.register('fetchingSalas');
+  }
+
+  resolveLoading(): void {
+    this.loadingSvc.resolve('fetchingSalas');
   }
 }

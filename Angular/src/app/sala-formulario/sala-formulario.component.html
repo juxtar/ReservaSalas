@@ -1,0 +1,63 @@
+<td-layout-card-over cardWidth="35" [cardTitle]="modificacion ? 'Modificar Sala' : 'Nueva Sala'">
+  <form #salaform="ngForm" (ngSubmit)="onSubmit()">
+    <!-- Nombre -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="sala.Nombre" name="nombre" maxlength="30"
+        #nombre="ngModel" placeholder="Nombre" required />
+        <md-hint *ngIf="nombre.errors && (nombre.dirty || nombre.touched)" class="tc-red-600">
+          <span [hidden]="!nombre.errors.required">
+            Debe ingresar un nombre
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Ubicacion -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="sala.Ubicacion" name="ubicacion" maxlength="30"
+        #ubicacion="ngModel" placeholder="Ubicación" required />
+        <md-hint *ngIf="ubicacion.errors && (ubicacion.dirty || ubicacion.touched)" class="tc-red-600">
+          <span [hidden]="!ubicacion.errors.required">
+            Debe ingresar una ubicación
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Capacidad -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="number" max="999" min="1" [(ngModel)]="sala.Capacidad" name="capacidad"
+        #capacidad="ngModel" placeholder="Capacidad" required />
+        <md-hint *ngIf="capacidad.errors && (capacidad.dirty || capacidad.touched)" class="tc-red-600">
+          <span [hidden]="!capacidad.errors.required">
+            Debe ingresar la capacidad
+          </span>
+          <span [hidden]="!capacidad.errors.min">
+            La capacidad debe ser mayor que 0
+          </span>
+          <span [hidden]="!capacidad.errors.max">
+            La capacidad no puede ser un número tan grande
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Tipo -->
+    <div layout="column" layout-margin>
+      <label style="margin-left: 1em;" class="md-body-1">Tipo de Sala</label>
+      <div layout="row" layout-margin>
+        <md-button-toggle-group name="tipo" [(ngModel)]="sala.Tipo" required>
+          <md-button-toggle value="0">Capacitación</md-button-toggle>
+          <md-button-toggle value="1">Reunión</md-button-toggle>
+          <md-button-toggle value="2">Auditorio</md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+    </div>
+    <md-divider></md-divider>
+    <div class="inset">
+      <span flex></span>
+      <button type="submit" md-raised-button color="primary" [disabled]="!salaform.form.valid">Guardar</button>
+      <button type="button" md-button routerLink="/salas">Volver</button>
+    </div>
+  </form>
+</td-layout-card-over>

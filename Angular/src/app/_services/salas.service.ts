@@ -20,12 +20,36 @@ export class SalasService {
     return options;
   }
 
+  getSala(id: number): Promise<Sala> {
+    return this.http.get(API_URL + `/api/Salas/${id}`, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Sala;
+      })
+  }
+
   getSalas(): Promise<Sala[]> {
     return this.http.get(API_URL + '/api/Salas', this.options)
       .toPromise()
       .then((response: Response) => {
         return response.json() as Sala[];
       });
+  }
+
+  newSala(sala: Sala): Promise<Sala> {
+    return this.http.post(API_URL + '/api/Salas', sala, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Sala;
+      })
+  }
+
+  updateSala(id: number, sala: Sala): Promise<Sala> {
+    return this.http.put(API_URL + `/api/Salas/${id}`, sala, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Sala;
+      })
   }
 
   deleteSala(id: number): Promise<Response> {

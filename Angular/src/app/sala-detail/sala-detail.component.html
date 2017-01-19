@@ -3,7 +3,7 @@
     <div layout="row" layout-align="start center">
       <div>{{sala.Nombre}}</div>
       <div flex></div>
-      <button md-icon-button class="btn-margin">
+      <button md-icon-button class="btn-margin" [routerLink]="['/salas/editar', sala.ID]">
         <md-icon>edit</md-icon>
       </button>
       <button md-icon-button class="btn-margin" (click)="confirmarEliminar()">
