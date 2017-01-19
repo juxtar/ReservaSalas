@@ -13,8 +13,10 @@ export class AuthenticationService {
         // setear token si ya hay uno guardado válido
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
-        if (this.token && currentUser.expiration <= Date.now())
+        if (this.token && (currentUser.expiration <= Date.now())) {
             this.token = null;
+            localStorage.removeItem('currentUser');
+        }
     }
 
     login(username: string, password: string): Observable<boolean> {
