@@ -14,6 +14,16 @@ namespace WebApi.Controllers
     public class AccountsController : BaseApiController
     {
         [Authorize]
+        [Route("Me")]
+        public IHttpActionResult GetMyUser()
+        {
+            return Ok(this.UserManager.Users.ToList()
+                .Where(u => u.Id == User.Identity.GetUserId())
+                .Select(u => this.TheModelFactory.Create(u))
+                );
+        }
+
+        [Authorize]
         [Route("Users")]
         public IHttpActionResult GetUsers()
         {
