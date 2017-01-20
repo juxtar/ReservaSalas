@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ITdDataTableColumn, ITdDataTableSelectEvent,
+  TdDataTableSortingOrder, IPageChangeEvent, TdLoadingService,
+  TdDialogService, TdDataTableService, ITdDataTableSortChangeEvent } from '@covalent/core';
+
+import { Reserva } from '../_models';
+import { ReservasService } from '../_services/reservas.service';
+
 @Component({
   selector: 'app-reservas',
   templateUrl: './reservas.component.html',
@@ -7,9 +14,103 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservasComponent implements OnInit {
 
-  constructor() { }
+  data: Reserva[];
+  filteredData: Reserva[];
+  filteredTotal: number = 0;
+  sortBy: string = 'Anulada';
+  fromRow: number = 1;
+  pageSize: number = 10;
+  currentPage: number = 1;
+  sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
+  searchTerm: string = '';
+
+  columns: ITdDataTableColumn[] = [
+    { name: 'Anulada', label: 'Estado' },
+    { name: 'Sala.Nombre', label: 'Sala' },
+    { name: 'Motivo', label: 'Motivo' },
+    { name: 'Responsable.Descripcion', label: 'Responsable' },
+    { name: 'Inicio', label: 'Fecha', 
+            format: d => (new Date(d)).toLocaleDateString()},
+    { name: 'Inicio', label: 'Inicio', format: this.dateformat },
+    { name: 'Fin', label: 'Fin', format: this.dateformat },
+  ];
+
+  constructor(
+    private reservasSvc: ReservasService,
+    private tableSvc: TdDataTableService,
+    private dialogSvc: TdDialogService
+  ) { }
 
   ngOnInit() {
+    this.fetchReservas();
   }
 
+  fetchReservas() {
+    this.reservasSvc.getReservas()
+      .then((reservas: Reserva[]) => {
+        this.data = reservas;
+        this.filter();
+      })
+      .catch(response => this.dialogSvc.openAlert({
+        message: response.json().Message 
+            || 'Ha ocurrido un error, intente nuevamente.',
+        title: 'Error',
+        closeButton: 'Cerrar'
+      }));
+  }
+
+  sort(sortEvent: ITdDataTableSortChangeEvent): void {
+    this.sortBy = sortEvent.name;
+    this.sortOrder = sortEvent.order;
+    this.filter();
+  }
+
+  page(pagingEvent: IPageChangeEvent): void {
+    this.fromRow = pagingEvent.fromRow;
+    this.currentPage = pagingEvent.page;
+    this.pageSize = pagingEvent.pageSize;
+    this.filter();
+  }
+
+  search(searchTerm: string): void {
+    this.searchTerm = searchTerm;
+    this.filter();
+  }
+
+  // Implementar propio sort y filter
+  filter(): void {
+    let newData = this.data;
+    newData = this.tableSvc.filterData(newData, this.searchTerm, true);
+    this.filteredTotal = newData.length;
+    newData = this.tableSvc.sortData(newData, this.sortBy, this.sortOrder);
+    newData = this.tableSvc.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
+    this.filteredData = newData;
+  }
+
+  dateformat(date: string) {
+    let time = (new Date(date)).toLocaleTimeString();
+    let formatted = time.split(':');
+    formatted.splice(2);
+    return formatted.join(':');
+  }
+
+  displayStatus(reserva: Reserva) {
+    if (reserva.Anulada)
+      return 'Anulada';
+    if ((new Date(reserva.Fin)).valueOf() < Date.now())
+      return 'Caducada'
+    return 'Vigente'
+  }
+
+  displayIcon(reserva: Reserva) {
+    let status = this.displayStatus(reserva);
+    switch (status) {
+      case 'Anulada':
+        return 'cancel';
+      case 'Caducada':
+        return 'event_busy';
+      case 'Vigente':
+        return 'event_available';
+    }
+  }
 }
