@@ -13,6 +13,7 @@ import { ReservasComponent } from './reservas/reservas.component';
 import { SalaDetailComponent } from './sala-detail/sala-detail.component';
 import { LoginComponent } from './login/login.component';
 import { AuthenticationService, SalasService } from './_services';
+import { ReservasService } from './_services/reservas.service';
 import { AuthGuard } from './_guards';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 
@@ -36,7 +37,8 @@ import { SalaFormularioComponent } from './sala-formulario/sala-formulario.compo
   providers: [
     AuthGuard,
     AuthenticationService,
-    SalasService
+    SalasService,
+    ReservasService
   ],
   bootstrap: [AppComponent]
 })
