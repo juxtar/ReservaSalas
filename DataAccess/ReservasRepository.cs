@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ReservaSalas.Interfaces;
 using ReservaSalas.Modelos;
+using System.Data.Entity;
 
 namespace DataAccess
 {
@@ -38,12 +39,17 @@ namespace DataAccess
 
         public IEnumerable<Reserva> Get()
         {
-            return db.Set<Reserva>().ToArray();
+            return db.Set<Reserva>()
+                .Include(r => r.Sala)
+                .Include(r => r.Responsable)
+                .ToArray();
         }
 
         public bool TryGet(int id, out Reserva reserva)
         {
             reserva = db.Set<Reserva>().Find(id);
+            db.Entry(reserva).Reference(r => r.Sala).Load();
+            db.Entry(reserva).Reference(r => r.Responsable).Load();
             return reserva != null;
         }
 

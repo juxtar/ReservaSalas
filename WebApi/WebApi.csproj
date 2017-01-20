@@ -169,6 +169,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\SalasController.cs" />
+    <Compile Include="Filters\AnulacionInvalidaExceptionFilterAttribute.cs" />
     <Compile Include="Filters\NoExistenteExceptionFilterAttribute.cs" />
     <Compile Include="Filters\ReservaInvalidaExceptionFilterAttribute.cs" />
     <Compile Include="Filters\SalaNoDisponibleExceptionFilterAttribute.cs" />

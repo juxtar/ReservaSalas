@@ -45,11 +45,12 @@ namespace ReservaSalas.Servicios
             var reservas = repository.Get();
             var query = from r in reservas
                         where  !r.Anulada
+                            && r.ID != reserva.ID
                             && r.Sala == reserva.Sala
                             && r.Inicio < reserva.Fin
                             && r.Fin > reserva.Inicio
                         select r;
-            return query.Any();
+            return !query.Any();
         }
 
         private bool ValidarCantidadMaxima(Reserva r)
@@ -74,7 +75,7 @@ namespace ReservaSalas.Servicios
 
         private bool ValidarFin(Reserva r)
         {
-            return r.Fin > r.Inicio.AddHours(1);
+            return r.Fin >= r.Inicio.AddHours(1);
         }
 
         private bool ValidarSala(Reserva r)

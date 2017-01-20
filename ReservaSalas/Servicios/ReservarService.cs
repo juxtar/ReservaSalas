@@ -31,5 +31,14 @@ namespace ReservaSalas.Servicios
             validarSvc.Validar(r);
             return ReservasRep.Add(r);
         }
+
+        public Reserva ActualizarReserva(Reserva r)
+        {
+            var validarSvc = new ValidarReservaService(ReservasRep);
+            validarSvc.Validar(r);
+            if (!ReservasRep.Update(r))
+                throw new NoExistenteException("Reserva no existente.");
+            return r;
+        }
     }
 }

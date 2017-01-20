@@ -61,14 +61,28 @@ namespace WebApi.Controllers
         [ReservaInvalidaExceptionFilter]
         [SalaNoDisponibleExceptionFilter]
         [Authorize]
-        public void Put(int id, [FromBody]Reserva reserva)
+        public HttpResponseMessage Put(int id, [FromBody]Reserva reserva)
         {
+            var reservarService = new ReservarService(repository, new EmpleadosRepository(db));
+            var reservaActualizada = reservarService.ActualizarReserva(reserva);
+            var response = Request.CreateResponse(HttpStatusCode., reservaActualizada);
+            response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + reserva.ID.ToString());
+            return response;
         }
 
         // DELETE: api/Reservas/5
+        [NoExistenteExceptionFilter]
+        [AnulacionInvalidaExceptionFilter]
         [Authorize]
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            Reserva reserva;
+            if (!repository.TryGet(id, out reserva))
+                throw new NoExistenteException("Reserva no existente.");
+            var anularSvc = new AnularReservaService(repository);
+            if (!anularSvc.Anular(reserva))
+                return BadRequest();
+            return Ok();
         }
     }
 }
