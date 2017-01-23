@@ -1,4 +1,6 @@
-<td-layout-card-over *tdLoading="'fetchingSalas'" cardWidth="75">
+<md-progress-spinner *ngIf="loading" mode="indeterminate" color="primary"
+  style="text-align: center;margin: 5em auto;"></md-progress-spinner>
+<td-layout-card-over *ngIf="!loading" cardWidth="75">
   <div layout="column" layout-margin>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
       <span *ngIf="!searchBox.searchVisible" class="push-left-sm">

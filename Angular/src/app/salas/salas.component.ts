@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { ITdDataTableColumn, ITdDataTableSelectEvent,
-  TdDataTableSortingOrder, IPageChangeEvent, TdLoadingService,
-  TdDialogService, TdDataTableService, ITdDataTableSortChangeEvent } from '@covalent/core';
+  TdDataTableSortingOrder, IPageChangeEvent, ITdDataTableSortChangeEvent,
+  TdDialogService, TdDataTableService } from '@covalent/core';
 
 import { Sala } from '../_models';
 import { SalasService } from '../_services/salas.service';
@@ -23,6 +23,7 @@ export class SalasComponent implements OnInit {
   currentPage: number = 1;
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
   searchTerm: string = '';
+  loading: boolean = true;
 
   columns: ITdDataTableColumn[] = [
     { name: 'Nombre', label: 'Nombre' },
@@ -47,7 +48,6 @@ export class SalasComponent implements OnInit {
     private salasSvc: SalasService,
     private dialogSvc: TdDialogService,
     private tableSvc: TdDataTableService,
-    private loadingSvc: TdLoadingService
   ) { }
 
   ngOnInit() {
@@ -55,16 +55,17 @@ export class SalasComponent implements OnInit {
   }
 
   fetchSalas() {
-    this.registerLoading();
+    this.loading = true;
     this.salasSvc.getSalas()
       .then((salas: Sala[]) => {
         this.data = salas;
         this.filter();
         this.selectedRow = null;
-        this.resolveLoading();
+        this.loading = false;
       })
       .catch(response => this.dialogSvc.openAlert({
-        message: response.json().Message,
+        message: response.json().Message 
+            || 'Ha ocurrido un error, intente nuevamente.',
         title: 'Error',
         closeButton: 'Cerrar'
       }));
@@ -95,13 +96,5 @@ export class SalasComponent implements OnInit {
     newData = this.tableSvc.sortData(newData, this.sortBy, this.sortOrder);
     newData = this.tableSvc.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
-  }
-
-  registerLoading(): void {
-    this.loadingSvc.register('fetchingSalas');
-  }
-
-  resolveLoading(): void {
-    this.loadingSvc.resolve('fetchingSalas');
   }
 }
