@@ -1,36 +1,39 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { TdDialogService } from '@covalent/core';
 
-import { Sala } from '../_models';
+import { Sala, Reserva } from '../_models';
 import { SalasService } from '../_services/salas.service';
+import { ReservasService } from '../_services/reservas.service';
 
 @Component({
   selector: 'app-sala-detail',
   templateUrl: './sala-detail.component.html',
   styleUrls: ['./sala-detail.component.scss']
 })
-export class SalaDetailComponent implements OnInit {
+export class SalaDetailComponent implements OnInit, OnChanges {
   @Input()
   sala: Sala;
 
   @Output()
   onActualizar = new EventEmitter<Sala>();
 
-  get detail() {
-    if (this.sala.ID == 1) {
-      return "Disponible"
-    }
-    else {
-      return "Reservada de 9 a 11"
-    }
+  reservas: Reserva[] = [];
+
+  get hasReservas() {
+    return this.reservas.length != 0;
   }
 
   constructor(
     private dialogSvc: TdDialogService,
-    private salas: SalasService
+    private salasSvc: SalasService,
+    private reservasSvc: ReservasService
   ) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges() {
+    this.fetchReservas();
   }
   
   confirmarEliminar(): void {
@@ -43,9 +46,27 @@ export class SalaDetailComponent implements OnInit {
       acceptButton: 'Eliminar'
     }).afterClosed().subscribe((accept: boolean) => {
       if (accept) {
-        this.salas.deleteSala(this.sala.ID)
+        this.salasSvc.deleteSala(this.sala.ID)
           .then(() => this.onActualizar.emit(this.sala));
       }
     });
+  }
+
+  fetchReservas() {
+    this.reservasSvc.getReservasFiltered(this.sala.ID, null, false, false)
+      .then((reservas: Reserva[]) => {
+        this.reservas = reservas;
+      });
+  }
+
+  formatReservaDia(reserva: Reserva): string {
+    return (new Date(reserva.Inicio)).toLocaleDateString();
+  }
+
+  formatReservaHoras(date: string): string {
+    let time = (new Date(date)).toLocaleTimeString();
+    let formatted = time.split(':');
+    formatted.splice(2);
+    return formatted.join(':');
   }
 }

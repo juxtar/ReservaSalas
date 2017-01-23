@@ -27,4 +27,17 @@ export class ReservasService {
         return response.json() as Reserva[];
       });
   }
+
+  getReservasFiltered(idSala?: number, idResponsable?: number,
+      anulada?: boolean, caducada?: boolean): Promise<Reserva[]> {
+    let query = `/api/Reservas?IdSala=${idSala || null}` +
+                `&IdResponsable=${idResponsable || null}` +
+                `&Anulada=${anulada || null}` + 
+                `&Caducada=${caducada || null}`;
+    return this.http.get(API_URL + query)
+        .toPromise()
+        .then((response: Response) => {
+          return response.json() as Reserva[];
+        });
+  }
 }

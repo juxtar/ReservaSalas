@@ -12,7 +12,17 @@
     </div>
   </md-card-title>
   <md-card-content>
-    <p>{{detail}}</p>
+    <ul *ngIf="hasReservas">
+      <li *ngFor="let reserva of reservas">
+        Reservada por <strong>{{reserva.Responsable.Descripcion}}</strong>
+        para el día <strong>{{formatReservaDia(reserva)}}</strong>
+        de <strong>{{formatReservaHoras(reserva.Inicio)}}</strong>
+        a <strong>{{formatReservaHoras(reserva.Fin)}}</strong>
+      </li>
+    </ul>
+    <p *ngIf="!hasReservas">
+      La sala no tiene ninguna reserva vigente.
+    </p>
   </md-card-content>
   <md-card-actions>
     <button md-raised-button color="primary">Reservar</button>
