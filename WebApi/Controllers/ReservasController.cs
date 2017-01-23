@@ -18,11 +18,13 @@ namespace WebApi.Controllers
     {
         AppContext db;
         ReservasRepository repository;
+        ReservarService service;
 
         public ReservasController()
         {
             db = new AppContext();
             repository = new ReservasRepository(db);
+            service = new ReservarService(repository, new EmpleadosRepository(db), new SalasRepository(db));
         }
 
         // GET: api/Reservas
@@ -40,6 +42,15 @@ namespace WebApi.Controllers
             return reserva;
         }
 
+        public IEnumerable<Reserva> Get(
+                    int? IdSala,
+                    int? IdResponsable,
+                    bool? Anulada,
+                    bool? Caducada)
+        {
+            return repository.GetFiltered(IdSala, IdResponsable, Anulada, Caducada);
+        }
+
         // POST: api/Reservas
         [NoExistenteExceptionFilter]
         [ReservaInvalidaExceptionFilter]
@@ -47,8 +58,7 @@ namespace WebApi.Controllers
         [Authorize]
         public HttpResponseMessage Post([FromBody]Reserva reserva)
         {
-            var reservarService = new ReservarService(repository, new EmpleadosRepository(db));
-            var nuevaReserva = reservarService.GenerarReserva(reserva,
+            var nuevaReserva = service.GenerarReserva(reserva,
                     UserManager.FindById(User.Identity.GetUserId())
                         .Empleado_ID.Value);
             var response = Request.CreateResponse(HttpStatusCode.Created, nuevaReserva);
@@ -63,9 +73,8 @@ namespace WebApi.Controllers
         [Authorize]
         public HttpResponseMessage Put(int id, [FromBody]Reserva reserva)
         {
-            var reservarService = new ReservarService(repository, new EmpleadosRepository(db));
-            var reservaActualizada = reservarService.ActualizarReserva(reserva);
-            var response = Request.CreateResponse(HttpStatusCode., reservaActualizada);
+            var reservaActualizada = service.ActualizarReserva(reserva);
+            var response = Request.CreateResponse(HttpStatusCode.OK, reservaActualizada);
             response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + reserva.ID.ToString());
             return response;
         }
@@ -76,11 +85,7 @@ namespace WebApi.Controllers
         [Authorize]
         public IHttpActionResult Delete(int id)
         {
-            Reserva reserva;
-            if (!repository.TryGet(id, out reserva))
-                throw new NoExistenteException("Reserva no existente.");
-            var anularSvc = new AnularReservaService(repository);
-            if (!anularSvc.Anular(reserva))
+            if (!service.AnularReserva(id))
                 return BadRequest();
             return Ok();
         }

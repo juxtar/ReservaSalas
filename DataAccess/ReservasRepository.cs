@@ -37,6 +37,34 @@ namespace DataAccess
             return false;
         }
 
+        public IEnumerable<Reserva> GetFiltered(int? idSala, int? idResponsable,
+                    bool? anulada, bool? caducada)
+        {
+            var query = from r in db.Set<Reserva>()
+                        select r;
+            if (idSala != null)
+                query = from r in query
+                        where r.Sala.ID == idSala.Value
+                        select r;
+            if (idResponsable != null)
+                query = from r in query
+                        where r.Responsable.ID == idResponsable.Value
+                        select r;
+            if (anulada != null)
+                query = from r in query
+                        where r.Anulada == anulada.Value
+                        select r;
+            if (caducada != null)
+                query = from r in query
+                        where caducada.Value ?
+                            r.Fin <= DateTime.Now : r.Fin > DateTime.Now
+                        select r;
+            return query
+                .Include(r => r.Sala)
+                .Include(r => r.Responsable)
+                .ToArray();
+        }
+
         public IEnumerable<Reserva> Get()
         {
             return db.Set<Reserva>()
