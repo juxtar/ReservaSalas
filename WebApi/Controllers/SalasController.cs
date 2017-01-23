@@ -10,6 +10,7 @@ using WebApi.Models;
 using DataAccess;
 using ReservaSalas.Excepciones;
 using WebApi.Filters;
+using ReservaSalas.Servicios;
 
 namespace WebApi.Controllers
 {
@@ -17,11 +18,13 @@ namespace WebApi.Controllers
     {
         AppContext db;
         SalasRepository repository;
+        SalasService service;
 
         public SalasController()
         {
             db = new AppContext();
             repository = new SalasRepository(db);
+            service = new SalasService(repository);
         }
 
         // GET: api/Salas
@@ -44,12 +47,11 @@ namespace WebApi.Controllers
 
         // POST: api/Salas
         [YaExistenteExceptionFilter]
+        [SalaInvalidaExceptionFilter]
         [Authorize]
         public HttpResponseMessage Post([FromBody]Sala sala)
         {
-            if (!ModelState.IsValid)
-                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
-            sala = repository.Add(sala);
+            sala = service.NuevaSala(sala);
             var response = Request.CreateResponse(HttpStatusCode.Created, sala);
             response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + sala.ID.ToString());
             return response;
@@ -58,24 +60,21 @@ namespace WebApi.Controllers
         // PUT: api/Salas/5
         [YaExistenteExceptionFilter]
         [NoExistenteExceptionFilter]
+        [SalaInvalidaExceptionFilter]
         [Authorize]
         public Sala Put(int id, [FromBody]Sala sala)
         {
-            if (!ModelState.IsValid)
-                throw new HttpResponseException(Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState));
-            sala.ID = id;
-            if (!repository.Update(sala))
-                throw new NoExistenteException("Sala no existente.");
-            return sala;
+            return service.ActualizarSala(sala);
         }
 
         // DELETE: api/Salas/5
         [NoExistenteExceptionFilter]
+        [AnulacionInvalidaExceptionFilter]
         [Authorize]
         public IHttpActionResult Delete(int id)
         {
-            if (!repository.Delete(id))
-                throw new NoExistenteException("Sala no existente.");
+            if (!service.EliminarSala(id, new ReservasRepository(db)))
+                return BadRequest();
             return Ok();
         }
     }

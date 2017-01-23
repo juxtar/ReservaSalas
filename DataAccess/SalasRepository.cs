@@ -20,11 +20,6 @@ namespace DataAccess
 
         public Sala Add(Sala sala)
         {
-            var consulta = from s in db.Set<Sala>()
-                           where s.Nombre == sala.Nombre
-                           select s;
-            if (consulta.Any())
-                throw new YaExistenteException("Ya existe una sala con el mismo nombre.");
             Sala retorno = db.Set<Sala>().Add(sala);
             db.SaveChanges();
             return retorno;
@@ -59,12 +54,6 @@ namespace DataAccess
 
             if (original != null)
             {
-                var consulta = from s in db.Set<Sala>()
-                               where s.Nombre == sala.Nombre
-                                  && s.ID != sala.ID
-                               select s;
-                if (consulta.Any())
-                    throw new YaExistenteException("Ya existe una sala con el mismo nombre.");
                 db.Entry(original).CurrentValues.SetValues(sala);
                 db.SaveChanges();
                 return true;

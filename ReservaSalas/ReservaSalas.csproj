@@ -49,8 +49,10 @@
     <Compile Include="Excepciones\AnulacionInvalidaException.cs" />
     <Compile Include="Excepciones\NoExistenteException.cs" />
     <Compile Include="Excepciones\ReservaInvalidaException.cs" />
+    <Compile Include="Excepciones\SalaInvalidaException.cs" />
     <Compile Include="Excepciones\SalaNoDisponibleException.cs" />
     <Compile Include="Excepciones\YaExistenteException.cs" />
+    <Compile Include="Modelos\Encuesta.cs" />
     <Compile Include="Servicios\AnularReservaService.cs" />
     <Compile Include="Servicios\CompletarEncuestaService.cs" />
     <Compile Include="Modelos\Empleado.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="Modelos\Reserva.cs" />
     <Compile Include="Servicios\ReservarService.cs" />
     <Compile Include="Modelos\Sala.cs" />
+    <Compile Include="Servicios\SalasService.cs" />
     <Compile Include="Servicios\ValidarReservaService.cs" />
   </ItemGroup>
   <ItemGroup />
