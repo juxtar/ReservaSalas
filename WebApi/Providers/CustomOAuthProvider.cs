@@ -32,15 +32,17 @@ namespace WebApi.Providers
 
             if (user == null)
             {
-                context.SetError("invalid_grant", "The user name or password is incorrect.");
+                context.SetError("invalid_grant", "El usuario o la contraseña son incorrectas.");
                 return;
             }
 
+            /*
             if (!user.EmailConfirmed)
             {
                 context.SetError("invalid_grant", "User did not confirm email.");
                 return;
             }
+            */
 
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
 

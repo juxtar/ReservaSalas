@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { TdLoadingService } from '@covalent/core';
+import { TdLoadingService, TdDialogService } from '@covalent/core';
 
 import { AuthenticationService } from '../_services';
 
@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private router: Router,
     private authenticationService: AuthenticationService,
-    private loadingService: TdLoadingService
+    private loadingService: TdLoadingService,
+    private dialogSvc: TdDialogService
   ) { }
 
   ngOnInit() {
@@ -34,9 +35,12 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/salas']);
           } else {
             // login failed
-            // TODO show error
+            this.handleError();
             this.resolveLoading();
           }
+        }, error => {
+          this.handleError(error.json().error_description);
+          this.resolveLoading();
         });
   }
 
@@ -46,5 +50,13 @@ export class LoginComponent implements OnInit {
 
   resolveLoading(): void {
     this.loadingService.resolve('loggingIn');
+  }
+
+  handleError(message?: string): void {
+    this.dialogSvc.openAlert({
+      title: 'Error',
+      message: message || 'Ha ocurrido un error, intente nuevamente',
+      closeButton: 'Cerrar'
+    })
   }
 }

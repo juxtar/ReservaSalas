@@ -23,8 +23,8 @@ export class AuthenticationService {
         let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded'});
         return this.http.post(API_URL + '/oauth/token', 
                 `username=${username}&password=${password}&grant_type=password`,
-                headers
-            ).map((response: Response) => {
+                headers)
+            .map((response: Response) => {
                 let token = response.json() && response.json().access_token;
                 if (token) {
                     let expiration = Date.now() + (response.json().expires_in * 1000);
