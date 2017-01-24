@@ -6,11 +6,13 @@ import { ITdDataTableColumn, ITdDataTableSelectEvent,
 
 import { Reserva } from '../_models';
 import { ReservasService } from '../_services/reservas.service';
+import { ReservautilsService } from '../_utils/reservautils.service';
 
 @Component({
   selector: 'app-reservas',
   templateUrl: './reservas.component.html',
-  styleUrls: ['./reservas.component.scss']
+  styleUrls: ['./reservas.component.scss'],
+  providers: [ ReservautilsService ]
 })
 export class ReservasComponent implements OnInit {
 
@@ -29,16 +31,16 @@ export class ReservasComponent implements OnInit {
     { name: 'Sala.Nombre', label: 'Sala' },
     { name: 'Motivo', label: 'Motivo' },
     { name: 'Responsable.Descripcion', label: 'Responsable' },
-    { name: 'Inicio', label: 'Fecha', 
-            format: d => (new Date(d)).toLocaleDateString()},
-    { name: 'Inicio', label: 'Inicio', format: this.dateformat },
-    { name: 'Fin', label: 'Fin', format: this.dateformat },
+    { name: 'Inicio', label: 'Fecha', format: this.reservaUtils.getDayFromISO },
+    { name: 'Inicio', label: 'Inicio', format: this.reservaUtils.getTimeFromISO },
+    { name: 'Fin', label: 'Fin', format: this.reservaUtils.getTimeFromISO },
   ];
 
   constructor(
     private reservasSvc: ReservasService,
     private tableSvc: TdDataTableService,
-    private dialogSvc: TdDialogService
+    private dialogSvc: TdDialogService,
+    private reservaUtils: ReservautilsService
   ) { }
 
   ngOnInit() {
@@ -51,12 +53,14 @@ export class ReservasComponent implements OnInit {
         this.data = reservas;
         this.filter();
       })
-      .catch(response => this.dialogSvc.openAlert({
+      .catch(response => {
+        console.log(response);
+        this.dialogSvc.openAlert({
         message: response.json().Message 
             || 'Ha ocurrido un error, intente nuevamente.',
         title: 'Error',
         closeButton: 'Cerrar'
-      }));
+      })});
   }
 
   sort(sortEvent: ITdDataTableSortChangeEvent): void {
@@ -85,13 +89,6 @@ export class ReservasComponent implements OnInit {
     newData = this.tableSvc.sortData(newData, this.sortBy, this.sortOrder);
     newData = this.tableSvc.pageData(newData, this.fromRow, this.currentPage * this.pageSize);
     this.filteredData = newData;
-  }
-
-  dateformat(date: string) {
-    let time = (new Date(date)).toLocaleTimeString();
-    let formatted = time.split(':');
-    formatted.splice(2);
-    return formatted.join(':');
   }
 
   displayStatus(reserva: Reserva) {

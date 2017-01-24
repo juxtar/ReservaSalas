@@ -4,11 +4,13 @@ import { TdDialogService } from '@covalent/core';
 import { Sala, Reserva } from '../_models';
 import { SalasService } from '../_services/salas.service';
 import { ReservasService } from '../_services/reservas.service';
+import { ReservautilsService } from '../_utils/reservautils.service';
 
 @Component({
   selector: 'app-sala-detail',
   templateUrl: './sala-detail.component.html',
-  styleUrls: ['./sala-detail.component.scss']
+  styleUrls: ['./sala-detail.component.scss'],
+  providers: [ ReservautilsService ]
 })
 export class SalaDetailComponent implements OnInit, OnChanges {
   @Input()
@@ -26,7 +28,8 @@ export class SalaDetailComponent implements OnInit, OnChanges {
   constructor(
     private dialogSvc: TdDialogService,
     private salasSvc: SalasService,
-    private reservasSvc: ReservasService
+    private reservasSvc: ReservasService,
+    private reservaUtils: ReservautilsService
   ) { }
 
   ngOnInit() {
@@ -60,13 +63,10 @@ export class SalaDetailComponent implements OnInit, OnChanges {
   }
 
   formatReservaDia(reserva: Reserva): string {
-    return (new Date(reserva.Inicio)).toLocaleDateString();
+    return this.reservaUtils.getDayFromISO(reserva.Inicio);
   }
 
   formatReservaHoras(date: string): string {
-    let time = (new Date(date)).toLocaleTimeString();
-    let formatted = time.split(':');
-    formatted.splice(2);
-    return formatted.join(':');
+    return this.reservaUtils.getTimeFromISO(date);
   }
 }
