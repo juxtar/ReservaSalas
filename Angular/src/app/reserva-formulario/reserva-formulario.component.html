@@ -1,0 +1,91 @@
+<td-layout-card-over cardWidth="40" [cardTitle]="'Reservar Sala - ' + nombreSala">
+  <form #reservaform="ngForm" (ngSubmit)="onSubmit()">
+    <!-- Motivo -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="reserva.Motivo" name="motivo" maxlength="30"
+        #motivo="ngModel" placeholder="Motivo" required />
+        <md-hint *ngIf="motivo.errors && (motivo.dirty || motivo.touched)" class="tc-red-600">
+          <span [hidden]="!motivo.errors.required">
+            Debe ingresar un motivo
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Cantidad -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="number" max="{{capacidadMax}}" min="1" [(ngModel)]="reserva.Cantidad" name="cantidad"
+        #cantidad="ngModel" placeholder="Cantidad de personas" required />
+        <md-hint *ngIf="cantidad.errors && (cantidad.dirty || cantidad.touched)" class="tc-red-600">
+          <span [hidden]="!cantidad.errors.required">
+            Debe ingresar la cantidad de personas
+          </span>
+          <span [hidden]="!cantidad.errors.min">
+            La cantidad de personas debe ser mayor que 0
+          </span>
+          <span [hidden]="!cantidad.errors.max">
+            La sala elegida no tiene suficiente capacidad
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <div layout="row" layout-margin>
+      <!-- Fecha -->
+      <div flex>
+        <md2-datepicker type="date" [required]="true" [(ngModel)]="fecha"
+          placeholder="Fecha" [min]="hoy" name="fecha" #fechaInput="ngModel">
+        </md2-datepicker>
+        <div *ngIf="fechaInput.errors && (fechaInput.dirty || fechaInput.touched)" class="tc-red-600 md-caption">
+          <span [hidden]="!fechaInput.errors.required">
+            Debe ingresar una fecha
+          </span>
+        </div>
+      </div>
+      <!-- Inicio -->
+      <div flex>
+        <md2-datepicker type="time" [required]="true" [(ngModel)]="inicio"
+          placeholder="Inicio" [min]="hoy" name="inicio"
+          format="HH:mm" #inicioInput="ngModel" (change)="validarTiempo($event)">
+        </md2-datepicker>
+        <div *ngIf="inicioInput.errors && (inicioInput.dirty || inicioInput.touched)" class="tc-red-600 md-caption">
+          <span [hidden]="!inicioInput.errors.required">
+            Debe ingresar un horario de inicio
+          </span>
+        </div>
+      </div>
+      <!-- Fin -->
+      <div flex>
+        <md2-datepicker type="time" [required]="true" [(ngModel)]="fin"
+          placeholder="Fin" [min]="minFin" name="fin"
+          format="HH:mm" #finInput="ngModel" (change)="validarTiempo($event)">
+        </md2-datepicker>
+        <div *ngIf="finInput.errors && (finInput.dirty || finInput.touched)" class="tc-red-600 md-caption">
+          <span [hidden]="!finInput.errors.required">
+            Debe ingresar un horario de finalización
+          </span>
+        </div>
+      </div>
+    </div>
+    <!-- Extras -->
+    <div layout="column" layout-margin>
+      <label style="margin-left: 1em;" class="md-body-1">Extras</label>
+      <div layout="row" layout-margin>
+        <md-button-toggle-group>
+          <md-button-toggle [(ngModel)]="reserva.Servicio"
+              name="servicio" ngDefaultControl>Servicio</md-button-toggle>
+          <md-button-toggle [(ngModel)]="reserva.Almuerzo"
+              name="almuerzo" ngDefaultControl>Almuerzo</md-button-toggle>
+          <md-button-toggle [(ngModel)]="reserva.Proyector"
+              name="proyector" ngDefaultControl>Proyector</md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+    </div>
+    <md-divider></md-divider>
+    <div class="inset">
+      <span flex></span>
+      <button type="submit" md-raised-button color="primary" [disabled]="!reservaform.form.valid && !horasValidas">Reservar</button>
+      <button type="button" md-button routerLink="/salas">Volver</button>
+    </div>
+  </form>
+</td-layout-card-over>

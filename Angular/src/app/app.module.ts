@@ -5,6 +5,7 @@ import { HttpModule, RequestOptions } from '@angular/http';
 
 import { CovalentCoreModule } from '@covalent/core';
 import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
+import { Md2Module } from 'md2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { AuthenticationService, SalasService } from './_services';
 import { ReservasService } from './_services/reservas.service';
 import { AuthGuard } from './_guards';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
+import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,8 @@ import { SalaFormularioComponent } from './sala-formulario/sala-formulario.compo
     ReservasComponent,
     SalaDetailComponent,
     LoginComponent,
-    SalaFormularioComponent
+    SalaFormularioComponent,
+    ReservaFormularioComponent
   ],
   imports: [
     AppRoutingModule,
@@ -32,7 +35,8 @@ import { SalaFormularioComponent } from './sala-formulario/sala-formulario.compo
     FormsModule,
     HttpModule,
     CovalentCoreModule.forRoot(),
-    CovalentDynamicFormsModule.forRoot()
+    CovalentDynamicFormsModule.forRoot(),
+    Md2Module.forRoot()
   ],
   providers: [
     AuthGuard,

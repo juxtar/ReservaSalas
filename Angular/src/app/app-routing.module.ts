@@ -4,6 +4,7 @@ import { SalasComponent } from './salas/salas.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { LoginComponent } from './login/login.component';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
+import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 import { AuthGuard } from './_guards';
 
 const routes: Routes = [
@@ -11,6 +12,7 @@ const routes: Routes = [
     { path: 'salas', component: SalasComponent, canActivate: [AuthGuard] },
     { path: 'salas/nueva', component: SalaFormularioComponent, canActivate: [AuthGuard] },
     { path: 'salas/editar/:id', component: SalaFormularioComponent, canActivate: [AuthGuard] },
+    { path: 'salas/reservar/:id', component: ReservaFormularioComponent, canActivate: [AuthGuard] },
     { path: 'reservas', component: ReservasComponent },
     { path: 'login', component: LoginComponent },
 
