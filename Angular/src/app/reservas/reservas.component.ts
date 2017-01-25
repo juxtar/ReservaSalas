@@ -16,6 +16,9 @@ import { ReservautilsService } from '../_utils/reservautils.service';
 })
 export class ReservasComponent implements OnInit {
 
+  loading = true;
+  loadingId;
+
   data: Reserva[];
   filteredData: Reserva[];
   filteredTotal: number = 0;
@@ -25,6 +28,9 @@ export class ReservasComponent implements OnInit {
   currentPage: number = 1;
   sortOrder: TdDataTableSortingOrder = TdDataTableSortingOrder.Ascending;
   searchTerm: string = '';
+
+  mostrarCaducadas = false;
+  mostrarAnuladas = false;
 
   columns: ITdDataTableColumn[] = [
     { name: 'Anulada', label: 'Estado' },
@@ -40,7 +46,7 @@ export class ReservasComponent implements OnInit {
     private reservasSvc: ReservasService,
     private tableSvc: TdDataTableService,
     private dialogSvc: TdDialogService,
-    private reservaUtils: ReservautilsService
+    private reservaUtils: ReservautilsService,
   ) { }
 
   ngOnInit() {
@@ -48,9 +54,13 @@ export class ReservasComponent implements OnInit {
   }
 
   fetchReservas() {
-    this.reservasSvc.getReservas()
+    this.registerLoading();
+    this.reservasSvc.getReservasFiltered(
+              this.mostrarAnuladas ? "null" : "false",
+              this.mostrarCaducadas ? "null" : "false")
       .then((reservas: Reserva[]) => {
         this.data = reservas;
+        this.resolveLoading();
         this.filter();
       })
       .catch(response => {
@@ -109,5 +119,29 @@ export class ReservasComponent implements OnInit {
       case 'Vigente':
         return 'event_available';
     }
+  }
+  
+  toggleFilter(filter: string, value: boolean) {
+    switch(filter){
+      case 'caducada':
+        this.mostrarCaducadas = value;
+        break;
+      case 'anulada':
+        this.mostrarAnuladas = value;
+        break;
+      default:
+        return;
+    }
+    this.fetchReservas();
+  }
+
+  registerLoading() {
+    if (this.loadingId) clearTimeout(this.loadingId);
+    this.loadingId = setTimeout(() => this.loading = true, 250);
+  }
+
+  resolveLoading() {
+    if (this.loadingId) clearTimeout(this.loadingId);
+    this.loading = false;
   }
 }
