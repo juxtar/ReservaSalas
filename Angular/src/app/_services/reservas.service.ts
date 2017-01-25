@@ -28,16 +28,29 @@ export class ReservasService {
       });
   }
 
-  getReservasFiltered(idSala?: number, idResponsable?: number,
-      anulada?: boolean, caducada?: boolean): Promise<Reserva[]> {
+  getReservasFiltered(anulada: string, caducada: string,
+    idSala?: number, idResponsable?: number): Promise<Reserva[]> {
     let query = `/api/Reservas?IdSala=${idSala || null}` +
                 `&IdResponsable=${idResponsable || null}` +
-                `&Anulada=${anulada || null}` + 
-                `&Caducada=${caducada || null}`;
+                `&Anulada=${anulada}` + 
+                `&Caducada=${caducada}`;
     return this.http.get(API_URL + query)
         .toPromise()
         .then((response: Response) => {
           return response.json() as Reserva[];
         });
+  }
+
+  newReserva(reserva: Reserva): Promise<Reserva> {
+    return this.http.post(API_URL + '/api/Reservas', reserva, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Reserva;
+      })
+  }
+
+  deleteReserva(id: number): Promise<Response> {
+    return this.http.delete(API_URL + `/api/Reservas/${id}`, this.options)
+      .toPromise();
   }
 }

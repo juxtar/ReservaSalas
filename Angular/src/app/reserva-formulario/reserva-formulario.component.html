@@ -34,7 +34,8 @@
       <!-- Fecha -->
       <div flex>
         <md2-datepicker type="date" [required]="true" [(ngModel)]="fecha"
-          placeholder="Fecha" [min]="hoy" name="fecha" #fechaInput="ngModel">
+          placeholder="Fecha" [min]="hoy" name="fecha"
+          #fechaInput="ngModel" (change)="validarTiempo($event)">
         </md2-datepicker>
         <div *ngIf="fechaInput.errors && (fechaInput.dirty || fechaInput.touched)" class="tc-red-600 md-caption">
           <span [hidden]="!fechaInput.errors.required">
@@ -45,7 +46,7 @@
       <!-- Inicio -->
       <div flex>
         <md2-datepicker type="time" [required]="true" [(ngModel)]="inicio"
-          placeholder="Inicio" [min]="hoy" name="inicio"
+          placeholder="Inicio" name="inicio"
           format="HH:mm" #inicioInput="ngModel" (change)="validarTiempo($event)">
         </md2-datepicker>
         <div *ngIf="inicioInput.errors && (inicioInput.dirty || inicioInput.touched)" class="tc-red-600 md-caption">
@@ -57,7 +58,7 @@
       <!-- Fin -->
       <div flex>
         <md2-datepicker type="time" [required]="true" [(ngModel)]="fin"
-          placeholder="Fin" [min]="minFin" name="fin"
+          placeholder="Fin" name="fin"
           format="HH:mm" #finInput="ngModel" (change)="validarTiempo($event)">
         </md2-datepicker>
         <div *ngIf="finInput.errors && (finInput.dirty || finInput.touched)" class="tc-red-600 md-caption">
@@ -67,24 +68,40 @@
         </div>
       </div>
     </div>
+    <div *ngIf="!horasValidas" class="tc-red-600 md-caption" layout-margin>
+        Debe haber al menos una hora de diferencia entre el horario de inicio y el de finalización
+    </div>
     <!-- Extras -->
     <div layout="column" layout-margin>
       <label style="margin-left: 1em;" class="md-body-1">Extras</label>
+      <div *ngIf="!salaReunion" class="md-caption md-warn" layout-margin>
+        Servicio y Almuerzo sólo disponibles para Salas de Reunión.
+      </div>
       <div layout="row" layout-margin>
-        <md-button-toggle-group>
-          <md-button-toggle [(ngModel)]="reserva.Servicio"
-              name="servicio" ngDefaultControl>Servicio</md-button-toggle>
-          <md-button-toggle [(ngModel)]="reserva.Almuerzo"
-              name="almuerzo" ngDefaultControl>Almuerzo</md-button-toggle>
-          <md-button-toggle [(ngModel)]="reserva.Proyector"
-              name="proyector" ngDefaultControl>Proyector</md-button-toggle>
-        </md-button-toggle-group>
+        <div flex>
+          <md-slide-toggle color="primary" [(ngModel)]="reserva.Servicio" name="servicio"
+          [disabled]="!salaReunion"
+          mdTooltip="Galletitas, mate, café, te, etc." mdTooltipPosition="below">
+            Servicio
+          </md-slide-toggle>
+        </div>
+        <div flex>
+          <md-slide-toggle color="primary" [(ngModel)]="reserva.Almuerzo" name="almuerzo"
+          [disabled]="!salaReunion">
+            Almuerzo
+          </md-slide-toggle>
+        </div>
+        <div flex>
+          <md-slide-toggle color="primary" [(ngModel)]="reserva.Proyector" name="proyector">
+            Proyector
+          </md-slide-toggle>
+        </div>
       </div>
     </div>
     <md-divider></md-divider>
     <div class="inset">
       <span flex></span>
-      <button type="submit" md-raised-button color="primary" [disabled]="!reservaform.form.valid && !horasValidas">Reservar</button>
+      <button type="submit" md-raised-button color="primary" [disabled]="!reservaform.form.valid || !horasValidas">Reservar</button>
       <button type="button" md-button routerLink="/salas">Volver</button>
     </div>
   </form>

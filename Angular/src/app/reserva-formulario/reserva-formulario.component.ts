@@ -14,10 +14,11 @@ import { SalasService } from '../_services/salas.service';
 export class ReservaFormularioComponent implements OnInit {
   capacidadMax = 1;
 
+  salaReunion = true;
   horasValidas = true;
-  fecha: Date;
-  inicio: Date;
-  fin: Date;
+  fecha: string;
+  inicio: string;
+  fin: string;
   hoy = new Date();
   get minFin() {
     let ret = new Date(this.inicio);
@@ -32,8 +33,8 @@ export class ReservaFormularioComponent implements OnInit {
     Cantidad: null,
     Sala: null,
     Motivo: null,
-    Servicio: false, // Solo salas reunion
-    Almuerzo: false, // Solo salas reunion
+    Servicio: false,
+    Almuerzo: false,
     Proyector: false,
   };
 
@@ -53,16 +54,49 @@ export class ReservaFormularioComponent implements OnInit {
             this.reserva.Sala = sala;
             this.capacidadMax = sala.Capacidad;
             this.nombreSala = sala.Nombre;
+            this.salaReunion = sala.Tipo == 1;
           });
       });
   }
 
   onSubmit() {
-    console.log(this.reserva);
-    console.log(this.fecha, this.inicio, this.fin);
+    this.reservasSvc.newReserva(this.reserva)
+      .then(() => {
+        this.dialogSvc.openAlert({
+          message: '¡Sala reservada con éxito!',
+          closeButton: 'Volver'
+        }).afterClosed().subscribe(() => {
+          this.router.navigateByUrl('/reservas');
+        })
+      })
+      .catch((response) => this.handleError(response.Message));
   }
 
   validarTiempo(event) {
-    
+    if (this.fecha && this.inicio && this.fin) {
+      this.reserva.Inicio = this.buildDateISO(this.fecha, this.inicio);
+      this.reserva.Fin = this.buildDateISO(this.fecha, this.fin);
+      let inicio: any = new Date(this.reserva.Inicio);
+      let fin: any = new Date(this.reserva.Fin);
+      // Diferencia entre fechas en milisegundos
+      let diff = fin-inicio;
+      // Horas de diferencia debe ser al menos 1
+      this.horasValidas = (diff / 1000 / 60 / 60) >= 1;
+    }
+  }
+
+  buildDateISO(date, time) {
+    let value = new Date(date);
+    let [hours, minutes] = time.split(':');
+    value.setHours(+hours);
+    value.setMinutes(+minutes);
+    return value.toISOString();
+  }
+
+  handleError(message: string) {
+    this.dialogSvc.openAlert({
+      message: message || 'Ha ocurrido un error, por favor intente nuevamente.',
+      closeButton: 'Aceptar'
+    })
   }
 }

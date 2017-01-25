@@ -50,13 +50,22 @@ export class SalaDetailComponent implements OnInit, OnChanges {
     }).afterClosed().subscribe((accept: boolean) => {
       if (accept) {
         this.salasSvc.deleteSala(this.sala.ID)
-          .then(() => this.onActualizar.emit(this.sala));
+          .then(() => this.onActualizar.emit(this.sala))
+          .catch(response => this.handleError(response.json().Message));
       }
     });
   }
 
+  handleError(message?: string) {
+    this.dialogSvc.openAlert({
+      title: 'Error',
+      message: message || 'Ha ocurrido un error, intente nuevamente',
+      closeButton: 'Cerrar'
+    })
+  }
+
   fetchReservas() {
-    this.reservasSvc.getReservasFiltered(this.sala.ID, null, false, false)
+    this.reservasSvc.getReservasFiltered("false", "false", this.sala.ID)
       .then((reservas: Reserva[]) => {
         this.reservas = reservas;
       });
