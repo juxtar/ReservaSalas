@@ -22,9 +22,4 @@ export class AppComponent {
     constructor(private _router: Router) {
         this.router = _router;
     }
-
-    get currentRoute(): MenuRoute {
-        console.log(this.router.url)
-        return this.routes.find(value => value.route === this.router.url);
-    }
 }
