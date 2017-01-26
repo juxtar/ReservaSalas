@@ -1,13 +1,17 @@
-# Capa de Presentación
+# Capa de Presentaciï¿½n
 
-Capa de Presentación de SPA para el Proyecto de Reserva de Salas.
+Capa de Presentaciï¿½n de SPA para el Proyecto de Reserva de Salas.
 
 El mismo fue generado con [angular-cli](https://github.com/angular/angular-cli) y utiliza el framework web [Covalent](https://teradata.github.io/covalent/).
 
+## ConfiguraciÃ³n
+
+Debe configurar la direcciÃ³n de la [Web Api](../../../tree/master/WebApi) en el archivo [src/app/httpconfig.ts](src/app/httpconfig.ts).
+
 ## Development server
 
-Correr `ng serve` para levantar un development server. Navegar a `http://localhost:4200/`. La aplicación se recargará automáticamente cuando se detecten cambios.
+Correr `ng serve` para levantar un development server. Navegar a `http://localhost:4200/`. La aplicaciï¿½n se recargarï¿½ automï¿½ticamente cuando se detecten cambios.
 
 ## Build
 
-Correr `ng build` para generar un build del proyecto. El mismo será generado en la carpeta `dist/`. Para producción, agregar el flag `-prod`.
+Correr `ng build` para generar un build del proyecto. El mismo serï¿½ generado en la carpeta `dist/`. Para producciï¿½n, agregar el flag `-prod`.

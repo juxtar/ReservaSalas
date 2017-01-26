@@ -9,4 +9,4 @@ El proyecto se dividió en módulos a fin de separar responsabilidades.
 * [Modelo de Dominio](../../tree/master/ReservaSalas)
 * [Lógica de Acceso a Datos](../../tree/master/DataAccess)
 * [Capa de Presentación (Angular 2)](../../tree/master/Angular)
-* [ASP.NET Web Api + Identity](../../tree/master/WebApi)
+* [API Backend para el cliente Angular](../../tree/master/WebApi)
