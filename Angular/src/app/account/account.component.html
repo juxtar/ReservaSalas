@@ -1,0 +1,49 @@
+<td-layout-card-over *ngIf="!loading" cardWidth="55" cardTitle="Mi cuenta">
+  <div layout="row">
+    <md-list flex>
+      <md-list-item>
+        <md-icon md-list-avatar>account_circle</md-icon>
+        <h3 md-line>{{usuario.fullName}}</h3>
+        <p md-line>
+          Nombre
+        </p>
+      </md-list-item>
+    </md-list>
+    <md-list flex>
+      <md-list-item>
+        <md-icon md-list-avatar>account_circle</md-icon>
+        <h3 md-line>{{usuario.email}}</h3>
+        <p md-line>
+          Email
+        </p>
+      </md-list-item>
+    </md-list>
+    <md-list flex>
+      <md-list-item>
+        <md-icon md-list-avatar>account_circle</md-icon>
+        <h3 md-line>{{usuario.userName}}</h3>
+        <p md-line>
+          Nombre de Usuario
+        </p>
+      </md-list-item>
+    </md-list>
+  </div>
+  <td-expansion-panel label="Cambiar contraseña" sublabel="Para cambiar su contraseña, presione aquí.">
+    <form class="md-padding" layout="column">
+      <md-input-container flex>
+        <input md-input placeholder="Contraseña actual"/>
+      </md-input-container>
+      <md-input-container flex>
+        <input md-input placeholder="Nueva contraseña"/>
+      </md-input-container>
+      <md-input-container flex>
+        <input md-input placeholder="Confirmar nueva contraseña"/>
+      </md-input-container>
+    </form>
+    <md-divider></md-divider>
+    <div layout="row" layout-margin layout-align="end center">
+      <button md-button>Cancelar</button>
+      <button md-button color="primary">Guardar</button>
+    </div>
+  </td-expansion-panel>
+</td-layout-card-over>

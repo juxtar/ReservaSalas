@@ -54,4 +54,8 @@ export class AuthenticationService {
         this.token = null;
         localStorage.removeItem('currentUser');
     }
+
+    isAuthenticated(): boolean {
+        return !!this.token;
+    }
 }

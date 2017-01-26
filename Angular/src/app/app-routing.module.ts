@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 import { ReservaDetailComponent } from './reserva-detail/reserva-detail.component';
+import { AccountComponent } from './account/account.component';
 import { AuthGuard } from './_guards';
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
     { path: 'reservas', component: ReservasComponent },
     { path: 'reservas/detalle/:id', component: ReservaDetailComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
 
     { path: '**', redirectTo: '/reservas' }
 ];

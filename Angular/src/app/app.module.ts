@@ -19,6 +19,7 @@ import { AuthGuard } from './_guards';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 import { ReservaDetailComponent } from './reserva-detail/reserva-detail.component';
+import { AccountComponent } from './account/account.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReservaDetailComponent } from './reserva-detail/reserva-detail.componen
     LoginComponent,
     SalaFormularioComponent,
     ReservaFormularioComponent,
-    ReservaDetailComponent
+    ReservaDetailComponent,
+    AccountComponent
   ],
   imports: [
     AppRoutingModule,

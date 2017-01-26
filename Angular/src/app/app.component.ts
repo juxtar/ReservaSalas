@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { AuthenticationService } from './_services/authentication.service';
+
 class MenuRoute {
     route: string;
     title: string;
     icon: string;
+    auth: boolean;
 }
 
 @Component({
@@ -13,13 +16,27 @@ class MenuRoute {
     styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-    router: Router;
-    routes: MenuRoute[] = [
-        { route: '/salas', title: 'Salas', icon: 'home' },
-        { route: '/reservas', title: 'Reservas', icon: 'assignment'}
+    _routes: MenuRoute[] = [
+        { route: '/salas', title: 'Salas', icon: 'home', auth: true},
+        { route: '/reservas', title: 'Reservas', icon: 'assignment', auth: false },
+        { route: '/account', title: 'Mi Cuenta', icon: 'account_circle', auth: true },
+        { route: '/login', title: 'Cerrar sesión', icon: 'power_settings_new', auth: true },
     ]
+
+    _login: MenuRoute = 
+        { route: '/login', title: 'Iniciar sesión',
+          icon: 'input', auth: false }
     
-    constructor(private _router: Router) {
-        this.router = _router;
+    constructor(
+        private router: Router,
+        private auth: AuthenticationService
+    ) { }
+
+    get routes(): MenuRoute[] {
+        if (this.auth.isAuthenticated())
+            return this._routes;
+        else
+            return this._routes.filter(value => !value.auth)
+                .concat([this._login]);
     }
 }
