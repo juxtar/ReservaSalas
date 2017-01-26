@@ -40,6 +40,7 @@ export class ReservasComponent implements OnInit {
     { name: 'Inicio', label: 'Fecha', format: this.reservaUtils.getDayFromISO },
     { name: 'Inicio', label: 'Inicio', format: this.reservaUtils.getTimeFromISO },
     { name: 'Fin', label: 'Fin', format: this.reservaUtils.getTimeFromISO },
+    { name: 'Detalle', label: 'Ver Detalle'}
   ];
 
   constructor(

@@ -18,6 +18,7 @@ import { ReservasService } from './_services/reservas.service';
 import { AuthGuard } from './_guards';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
+import { ReservaDetailComponent } from './reserva-detail/reserva-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ReservaFormularioComponent } from './reserva-formulario/reserva-formula
     SalaDetailComponent,
     LoginComponent,
     SalaFormularioComponent,
-    ReservaFormularioComponent
+    ReservaFormularioComponent,
+    ReservaDetailComponent
   ],
   imports: [
     AppRoutingModule,

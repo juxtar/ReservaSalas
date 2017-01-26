@@ -1,0 +1,34 @@
+<md-progress-spinner *ngIf="loading" mode="indeterminate" color="primary"
+  style="text-align: center;margin: 5em auto;"></md-progress-spinner>
+<td-layout-card-over *ngIf="!loading" cardWidth="75">
+  <md-card-title>
+    <div layout="row" layout-align="start center">
+      <button md-icon-button class="btn-margin push-right-md"
+        routerLink="/reservas">
+        <md-icon>arrow_back</md-icon>
+      </button>
+      <div>Detalle de la Reserva</div>
+      <div flex></div>
+      <button md-icon-button class="btn-margin"
+       (click)="confirmarEliminar()">
+        <md-icon>delete</md-icon>
+      </button>
+    </div>
+  </md-card-title>
+  <md-divider></md-divider>
+  <div layout="row" layout-margin>
+    <md-list flex *ngFor="let detalle of [detallesReserva, detallesResponsable, detallesSala]; let i = index">
+      <md-list-item>
+        <h3>{{detalles[i]}}</h3>
+      </md-list-item>
+      <template let-item let-last="last" ngFor [ngForOf]="detalle">
+        <md-list-item>
+          <md-icon>{{item.icon}}</md-icon>
+          <h3 md-line> {{item.name}} </h3>
+          <h4 md-line> {{item.value}} </h4>
+        </md-list-item>
+        <md-divider *ngIf="!last" md-inset></md-divider>
+      </template>
+    </md-list>
+  </div>
+</td-layout-card-over>

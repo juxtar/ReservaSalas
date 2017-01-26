@@ -1,6 +1,6 @@
 <md-progress-spinner *ngIf="loading" mode="indeterminate" color="primary"
   style="text-align: center;margin: 5em auto;"></md-progress-spinner>
-<td-layout-card-over *ngIf="!loading" cardWidth="85">
+<td-layout-card-over *ngIf="!loading" cardWidth="90">
   <div layout="column" layout-margin>
     <div layout="row" layout-align="start center" class="pad-left-sm pad-right-sm">
       <span *ngIf="!searchBox.searchVisible" class="push-left-sm">
@@ -34,6 +34,14 @@
             <md-icon class="pad-right-xs push-xs">{{displayIcon(row)}}</md-icon>
             <span flex>
               {{displayStatus(row)}}</span>
+          </div>
+        </template>
+        <template tdDataTableTemplate="Detalle" let-value="value" let-row="row" let-column="column">
+          <div layout="row">
+            <button md-icon-button
+              [routerLink]="['/reservas/detalle', row.ID]">
+              <md-icon>details</md-icon>
+            </button>
           </div>
         </template>
     </td-data-table>

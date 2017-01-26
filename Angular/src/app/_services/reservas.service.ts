@@ -20,6 +20,14 @@ export class ReservasService {
     return options;
   }
 
+  getReserva(id: number): Promise<Reserva> {
+    return this.http.get(API_URL + `/api/Reservas/${id}`, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Reserva;
+      })
+  }
+
   getReservas(): Promise<Reserva[]> {
     return this.http.get(API_URL + '/api/Reservas')
       .toPromise()
