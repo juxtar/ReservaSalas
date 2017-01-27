@@ -38,7 +38,7 @@ namespace DataAccess
         }
 
         public IEnumerable<Reserva> GetFiltered(int? idSala, int? idResponsable,
-                    bool? anulada, bool? caducada)
+                    bool? anulada, bool? caducada, bool? encuestada)
         {
             var query = from r in db.Set<Reserva>()
                         select r;
@@ -59,9 +59,14 @@ namespace DataAccess
                         where caducada.Value ?
                             r.Fin <= DateTime.Now : r.Fin > DateTime.Now
                         select r;
+            if (encuestada != null)
+                query = from r in query
+                        where encuestada.Value == (r.Encuesta != null)
+                        select r;
             return query
                 .Include(r => r.Sala)
                 .Include(r => r.Responsable)
+                .Include(r => r.Encuesta)
                 .ToArray();
         }
 
@@ -70,6 +75,7 @@ namespace DataAccess
             return db.Set<Reserva>()
                 .Include(r => r.Sala)
                 .Include(r => r.Responsable)
+                .Include(r => r.Encuesta)
                 .ToArray();
         }
 
@@ -78,6 +84,7 @@ namespace DataAccess
             reserva = db.Set<Reserva>().Find(id);
             db.Entry(reserva).Reference(r => r.Sala).Load();
             db.Entry(reserva).Reference(r => r.Responsable).Load();
+            db.Entry(reserva).Reference(r => r.Encuesta).Load();
             return reserva != null;
         }
 

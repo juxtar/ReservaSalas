@@ -11,7 +11,7 @@ namespace ReservaSalas.Interfaces
     {
         IEnumerable<Reserva> Get();
         IEnumerable<Reserva> GetFiltered(int? idSala, int? idResponsable,
-                    bool? anulada, bool? caducada);
+                    bool? anulada, bool? caducada, bool? encuestada);
         bool TryGet(int id, out Reserva reserva);
         Reserva Add(Reserva reserva);
         bool Delete(int id);

@@ -19,5 +19,6 @@ namespace ReservaSalas.Modelos
         public bool Almuerzo { get; set; } // Sólo permitido en Salas Reunion
         public bool Proyector { get; set; }
         public bool Anulada { get; set; }
+        public Encuesta Encuesta { get; set; }
     }
 }
