@@ -30,7 +30,7 @@ namespace ReservaSalas.Servicios
 
         public bool EliminarSala(int idSala, IReservasRepository reservasRepo)
         {
-            var reservasSala = reservasRepo.GetFiltered(idSala, null, null, null);
+            var reservasSala = reservasRepo.GetFiltered(idSala, null, null, null, null);
             if (reservasSala.Any())
                 throw new AnulacionInvalidaException(
                     "No se puede eliminar la sala porque ya contiene reservas registradas.");

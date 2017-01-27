@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Excepciones\AnulacionInvalidaException.cs" />
+    <Compile Include="Excepciones\EncuestaInvalidaException.cs" />
     <Compile Include="Excepciones\NoExistenteException.cs" />
     <Compile Include="Excepciones\ReservaInvalidaException.cs" />
     <Compile Include="Excepciones\SalaInvalidaException.cs" />
@@ -54,7 +55,6 @@
     <Compile Include="Excepciones\YaExistenteException.cs" />
     <Compile Include="Modelos\Encuesta.cs" />
     <Compile Include="Servicios\AnularReservaService.cs" />
-    <Compile Include="Servicios\CompletarEncuestaService.cs" />
     <Compile Include="Modelos\Empleado.cs" />
     <Compile Include="Interfaces\IEmpleadosRepository.cs" />
     <Compile Include="Interfaces\IReservasRepository.cs" />

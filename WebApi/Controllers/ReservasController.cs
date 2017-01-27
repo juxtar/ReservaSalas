@@ -48,7 +48,16 @@ namespace WebApi.Controllers
                     bool? Anulada,
                     bool? Caducada)
         {
-            return repository.GetFiltered(IdSala, IdResponsable, Anulada, Caducada);
+            return repository.GetFiltered(IdSala, IdResponsable, Anulada, Caducada, null);
+        }
+
+        // GET: api/Reservas?encuestada=[valor]
+        // Devuelve mis reservas filtradas por encuesta cargada
+        public IEnumerable<Reserva> Get(bool encuestada)
+        {
+            var idEmpleado = UserManager.FindById(User.Identity.GetUserId())
+                        .Empleado_ID.Value;
+            return repository.GetFiltered(null, idEmpleado, null, null, encuestada);
         }
 
         // POST: api/Reservas
@@ -73,7 +82,9 @@ namespace WebApi.Controllers
         [Authorize]
         public HttpResponseMessage Put(int id, [FromBody]Reserva reserva)
         {
-            var reservaActualizada = service.ActualizarReserva(reserva);
+            var idEmpleado = UserManager.FindById(User.Identity.GetUserId())
+                        .Empleado_ID.Value;
+            var reservaActualizada = service.ActualizarReserva(reserva, idEmpleado);
             var response = Request.CreateResponse(HttpStatusCode.OK, reservaActualizada);
             response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + reserva.ID.ToString());
             return response;
@@ -88,6 +99,25 @@ namespace WebApi.Controllers
             if (!service.AnularReserva(id))
                 return BadRequest();
             return Ok();
+        }
+
+        [NoExistenteExceptionFilter]
+        [ReservaInvalidaExceptionFilter]
+        [SalaNoDisponibleExceptionFilter]
+        [EncuestaInvalidaExceptionFilter]
+        [Authorize]
+        [Route("api/Reservas/{id}/Encuesta")]
+        [HttpPost]
+        public HttpResponseMessage RealizarEncuesta(int id, [FromBody]Encuesta encuesta)
+        {
+            if (!ModelState.IsValid)
+                return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
+            var idEmpleado = UserManager.FindById(User.Identity.GetUserId())
+                        .Empleado_ID.Value;
+            var reservaActualizada = service.AgregarEncuesta(id, encuesta, idEmpleado);
+            var response = Request.CreateResponse(HttpStatusCode.OK, reservaActualizada);
+            response.Headers.Location = new Uri(Request.RequestUri, "/api/Sala/" + id.ToString());
+            return response;
         }
     }
 }

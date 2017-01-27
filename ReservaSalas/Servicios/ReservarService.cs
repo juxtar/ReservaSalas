@@ -40,13 +40,16 @@ namespace ReservaSalas.Servicios
             return ReservasRep.Add(r);
         }
 
-        public Reserva ActualizarReserva(Reserva r)
+        public Reserva ActualizarReserva(Reserva r, int idEmpleado, bool validar = true)
         {
             var validarSvc = new ValidarReservaService(ReservasRep);
+            if (r.Responsable.ID != idEmpleado)
+                throw new ReservaInvalidaException("Sólo puede actualizar las reservas hechas por su usuario.");
             Sala sala;
             if (!SalasRep.TryGet(r.Sala.ID, out sala))
                 throw new NoExistenteException("Sala no existente.");
-            validarSvc.Validar(r);
+            if (validar)
+                validarSvc.Validar(r);
             if (!ReservasRep.Update(r))
                 throw new NoExistenteException("Reserva no existente.");
             return r;
@@ -58,9 +61,20 @@ namespace ReservaSalas.Servicios
             if (!ReservasRep.TryGet(idReserva, out reserva))
                 throw new NoExistenteException("Reserva no existente.");
             var anularSvc = new AnularReservaService(ReservasRep);
-            if (!anularSvc.Anular(reserva))
-                return false;
-            return true;
+            return anularSvc.Anular(reserva);
+        }
+
+        public Reserva AgregarEncuesta(int idReserva, Encuesta encuesta, int idEmpleado)
+        {
+            Reserva reserva;
+            if (!ReservasRep.TryGet(idReserva, out reserva))
+                throw new NoExistenteException("Reserva no existente.");
+            if (reserva.Encuesta != null)
+                throw new EncuestaInvalidaException("Ya se realizó la encuesta para esta reserva.");
+            if (reserva.Fin > DateTime.Now)
+                throw new EncuestaInvalidaException("La encuesta se debe realizar una vez caducada la reserva.");
+            reserva.Encuesta = encuesta;
+            return ActualizarReserva(reserva, idEmpleado, false);
         }
     }
 }

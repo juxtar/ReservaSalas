@@ -170,6 +170,7 @@
     <Compile Include="Controllers\ReservasController.cs" />
     <Compile Include="Controllers\SalasController.cs" />
     <Compile Include="Filters\AnulacionInvalidaExceptionFilterAttribute.cs" />
+    <Compile Include="Filters\EncuestaInvalidaExceptionFilterAttribute.cs" />
     <Compile Include="Filters\NoExistenteExceptionFilterAttribute.cs" />
     <Compile Include="Filters\ReservaInvalidaExceptionFilterAttribute.cs" />
     <Compile Include="Filters\SalaInvalidaExceptionFilterAttribute.cs" />
@@ -182,6 +183,14 @@
     <Compile Include="Migrations\201701121422356_InitialCreate1.cs" />
     <Compile Include="Migrations\201701121422356_InitialCreate1.Designer.cs">
       <DependentUpon>201701121422356_InitialCreate1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701271450525_AddEncuesta.cs" />
+    <Compile Include="Migrations\201701271450525_AddEncuesta.Designer.cs">
+      <DependentUpon>201701271450525_AddEncuesta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701271510369_UpdateEncuesta.cs" />
+    <Compile Include="Migrations\201701271510369_UpdateEncuesta.Designer.cs">
+      <DependentUpon>201701271510369_UpdateEncuesta.cs</DependentUpon>
     </Compile>
     <Compile Include="Providers\CustomJwtFormat.cs" />
     <Compile Include="Providers\CustomOAuthProvider.cs" />
@@ -228,6 +237,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701121422356_InitialCreate1.resx">
       <DependentUpon>201701121422356_InitialCreate1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701271450525_AddEncuesta.resx">
+      <DependentUpon>201701271450525_AddEncuesta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701271510369_UpdateEncuesta.resx">
+      <DependentUpon>201701271510369_UpdateEncuesta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
