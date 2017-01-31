@@ -51,9 +51,22 @@ namespace WebApi.Controllers
             return repository.GetFiltered(IdSala, IdResponsable, Anulada, Caducada, null);
         }
 
-        // GET: api/Reservas?encuestada=[valor]
-        // Devuelve mis reservas filtradas por encuesta cargada
-        public IEnumerable<Reserva> Get(bool encuestada)
+        // GET: api/Reservas/MisReservas
+        // Devuelve mis reservas
+        [Route("api/Reservas/MisReservas")]
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<Reserva> GetMisReservas()
+        {
+            var idEmpleado = UserManager.FindById(User.Identity.GetUserId())
+                        .Empleado_ID.Value;
+            return repository.GetFiltered(null, idEmpleado, null, null, null);
+        }
+
+        [Route("api/Reservas/MisReservas")]
+        [HttpGet]
+        [Authorize]
+        public IEnumerable<Reserva> GetMisReservas(bool encuestada)
         {
             var idEmpleado = UserManager.FindById(User.Identity.GetUserId())
                         .Empleado_ID.Value;
