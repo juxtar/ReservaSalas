@@ -7,31 +7,36 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using WebApi.Models;
+using System.Web.Http.Cors;
 
 namespace WebApi.Controllers
 {
-    [RoutePrefix("api/Accounts")]
+    //[RoutePrefix("api/Accounts")]
     public class AccountsController : BaseApiController
     {
         [Authorize]
-        [Route("Me")]
-        public IHttpActionResult GetMyUser()
+        //[Route("Me")]
+        [HttpGet]
+        public IHttpActionResult Me()
         {
             return Ok(this.UserManager.Users.ToList()
                 .Where(u => u.Id == User.Identity.GetUserId())
                 .Select(u => this.TheModelFactory.Create(u))
+                .First()
                 );
         }
 
         [Authorize]
-        [Route("Users")]
-        public IHttpActionResult GetUsers()
+        //[Route("Users")]
+        [HttpGet]
+        public IHttpActionResult Users()
         {
             return Ok(this.UserManager.Users.ToList().Select(u => this.TheModelFactory.Create(u)));
         }
 
         [Authorize]
-        [Route("User/{id:guid}", Name = "GetUserById")]
+        [Route("api/Accounts/User/{id:guid}", Name = "GetUserById")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetUser(string Id)
         {
             var user = await this.UserManager.FindByIdAsync(Id);
@@ -46,7 +51,8 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        [Route("User/{username}")]
+        [Route("api/Accounts/User/{username}")]
+        [HttpGet]
         public async Task<IHttpActionResult> GetUserByName(string username)
         {
             var user = await this.UserManager.FindByNameAsync(username);
@@ -61,8 +67,9 @@ namespace WebApi.Controllers
         }
 
         [AllowAnonymous]
-        [Route("Create")]
-        public async Task<IHttpActionResult> CreateUser(CreateUserBindingModel createUserModel)
+        //[Route("api/Accounts/Create")]
+        [HttpPost]
+        public async Task<IHttpActionResult> Create([FromBody]CreateUserBindingModel createUserModel)
         {
             if (!ModelState.IsValid)
             {
@@ -95,8 +102,9 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        [Route("ChangePassword")]
-        public async Task<IHttpActionResult> ChangePassword(ChangePasswordBindingModel model)
+        //[Route("api/Accounts/ChangePassword")]
+        [HttpPost]
+        public async Task<IHttpActionResult> ChangePassword([FromBody]ChangePasswordBindingModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -114,7 +122,8 @@ namespace WebApi.Controllers
         }
 
         [Authorize]
-        [Route("User/{id:guid}")]
+        [Route("api/Accounts/User/{id:guid}")]
+        [HttpDelete]
         public async Task<IHttpActionResult> DeleteUser(string id)
         {
 
