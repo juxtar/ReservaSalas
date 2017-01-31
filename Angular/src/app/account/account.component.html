@@ -1,9 +1,11 @@
+<md-progress-spinner *ngIf="loading" mode="indeterminate" color="primary"
+  style="text-align: center;margin: 5em auto;"></md-progress-spinner>
 <td-layout-card-over *ngIf="!loading" cardWidth="55" cardTitle="Mi cuenta">
   <div layout="row">
     <md-list flex>
       <md-list-item>
         <md-icon md-list-avatar>face</md-icon>
-        <h3 md-line>{{usuario.fullName}}</h3>
+        <h3 md-line>{{usuario.FullName}}</h3>
         <p md-line>
           Nombre
         </p>
@@ -12,7 +14,7 @@
     <md-list flex>
       <md-list-item>
         <md-icon md-list-avatar>email</md-icon>
-        <h3 md-line>{{usuario.email}}</h3>
+        <h3 md-line>{{usuario.Email}}</h3>
         <p md-line>
           Email
         </p>
@@ -21,29 +23,61 @@
     <md-list flex>
       <md-list-item>
         <md-icon md-list-avatar>account_circle</md-icon>
-        <h3 md-line>{{usuario.userName}}</h3>
+        <h3 md-line>{{usuario.UserName}}</h3>
         <p md-line>
           Nombre de Usuario
         </p>
       </md-list-item>
     </md-list>
   </div>
-  <td-expansion-panel label="Cambiar contraseña" sublabel="Para cambiar su contraseña, presione aquí.">
-    <form class="md-padding" layout="column">
+  <td-expansion-panel #passpanel label="Cambiar contraseña" sublabel="Para cambiar su contraseña, presione aquí.">
+    <form #passform="ngForm" class="md-padding" layout="column" layout-margin>
       <md-input-container flex>
-        <input md-input placeholder="Contraseña actual"/>
+        <input md-input type="password" required minlength="6" placeholder="Contraseña actual"
+        [(ngModel)]="newPassword.OldPassword" name="oldpassword" #oldpassword="ngModel"/>
+        <md-hint *ngIf="oldpassword.errors && (oldpassword.dirty || oldpassword.touched)" class="tc-red-600">
+          <span [hidden]="!oldpassword.errors.required">
+            Debe ingresar la contraseña actual
+          </span>
+          <span [hidden]="!oldpassword.errors.minlength">
+            La contraseña debe contener al menos 6 caracteres
+          </span>
+        </md-hint>
       </md-input-container>
       <md-input-container flex>
-        <input md-input placeholder="Nueva contraseña"/>
+        <input md-input type="password" required minlength="6" placeholder="Nueva contraseña"
+        (change)="passform.form.controls.confirmpassword.updateValueAndValidity()"
+        [(ngModel)]="newPassword.NewPassword" name="newpassword" #newpassword="ngModel"/>
+        <md-hint *ngIf="newpassword.errors && (newpassword.dirty || newpassword.touched)" class="tc-red-600">
+          <span [hidden]="!newpassword.errors.required">
+            Debe ingresar una nueva contraseña
+          </span>
+          <span [hidden]="!newpassword.errors.minlength">
+            La contraseña debe contener al menos 6 caracteres
+          </span>
+        </md-hint>
       </md-input-container>
       <md-input-container flex>
-        <input md-input placeholder="Confirmar nueva contraseña"/>
+        <input md-input type="password" required minlength="6" placeholder="Confirmar nueva contraseña"
+        [confirmPassword]="newPassword.NewPassword"
+        [(ngModel)]="newPassword.ConfirmPassword" name="confirmpassword" #confirmpassword="ngModel"/>
+        <md-hint *ngIf="(confirmpassword.errors) && (confirmpassword.dirty || confirmpassword.touched)" class="tc-red-600">
+          <span [hidden]="!confirmpassword.errors.required">
+            Debe confirmar la nueva contraseña
+          </span>
+          <span [hidden]="!confirmpassword.errors.minlength">
+            La contraseña debe contener al menos 6 caracteres
+          </span>
+          <span [hidden]="!confirmpassword.errors.confirmPassword">
+            Las contraseñas ingresadas no coinciden
+          </span>
+        </md-hint>
       </md-input-container>
     </form>
     <md-divider></md-divider>
     <div layout="row" layout-margin layout-align="end center">
-      <button md-button>Cancelar</button>
-      <button md-button color="primary">Guardar</button>
+      <button md-button (click)="passform.reset(); passpanel.close();">Cancelar</button>
+      <button md-button color="primary" [disabled]="!passform.form.valid" (click)="cambiarClave()">Guardar</button>
     </div>
   </td-expansion-panel>
 </td-layout-card-over>

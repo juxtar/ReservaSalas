@@ -20,6 +20,9 @@ import { SalaFormularioComponent } from './sala-formulario/sala-formulario.compo
 import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 import { ReservaDetailComponent } from './reserva-detail/reserva-detail.component';
 import { AccountComponent } from './account/account.component';
+import { EncuestasComponent } from './encuestas/encuestas.component';
+import { EncuestaFormularioComponent } from './encuesta-formulario/encuesta-formulario.component';
+import { ConfirmPasswordDirective } from './_utils/confirmpassword.directive';
 
 @NgModule({
   declarations: [
@@ -31,7 +34,8 @@ import { AccountComponent } from './account/account.component';
     SalaFormularioComponent,
     ReservaFormularioComponent,
     ReservaDetailComponent,
-    AccountComponent
+    AccountComponent,
+    ConfirmPasswordDirective
   ],
   imports: [
     AppRoutingModule,

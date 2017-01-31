@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models';
+import { TdDialogService } from '@covalent/core';
+
+import { User, Password } from '../_models';
 import { UserService } from '../_services/user.service';
 
 @Component({
@@ -10,15 +12,19 @@ import { UserService } from '../_services/user.service';
   providers: [ UserService ]
 })
 export class AccountComponent implements OnInit {
+  loading = true;
 
   usuario: User = {
-    userName: null,
-    email: null,
-    fullName: null
+    UserName: null,
+    Email: null,
+    FullName: null
   };
 
+  newPassword = new Password();
+
   constructor(
-    private userSvc: UserService
+    private userSvc: UserService,
+    private dialogSvc: TdDialogService
   ) { }
 
   ngOnInit() {
@@ -26,10 +32,23 @@ export class AccountComponent implements OnInit {
   }
 
   fetchUser() {
-    this.userSvc.myUser().then(user => this.usuario = user);
+    this.userSvc.myUser().then(user => this.usuario = user)
+      .then(() => this.loading = false);
   }
 
   cambiarClave() {
+    this.userSvc.changePassword(this.newPassword)
+      .then((response) => this.showMessage(response.json().Message, false))
+      .catch((response) => this.showMessage(response.json().Message, true))
+  }
 
+  showMessage(message: string, err: boolean) {
+    this.dialogSvc.openAlert({
+      title: err? 'Error' : '¡Éxito!',
+      message: message || 
+        (err? 'Ha ocurrido un error, por favor intente nuevamente.' :
+        'Contraseña cambiada con éxito.'),
+      closeButton: 'Aceptar'
+    })
   }
 }

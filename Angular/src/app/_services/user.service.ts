@@ -16,12 +16,11 @@ export class UserService {
 
   get headers(): Headers {
     let headers = new Headers({'Authorization': 'Bearer ' + this.auth.token});
-    headers.append("useCredentials", "true");
     return headers;
   }
 
   myUser(): Promise<User> {
-    return this.http.get(API_URL + '/api/Accounts/Me', this.headers)
+    return this.http.get(API_URL + '/api/Accounts/Me', {headers: this.headers})
       .toPromise()
       .then((response: Response) => {
           return response.json() as User;
@@ -29,7 +28,7 @@ export class UserService {
   }
 
   changePassword(password: Password): Promise<Response> {
-    return this.http.post(API_URL + '/api/Accounts/ChangePassword', password, this.headers)
+    return this.http.post(API_URL + '/api/Accounts/ChangePassword', password, {headers: this.headers})
       .toPromise();
   }
 }
