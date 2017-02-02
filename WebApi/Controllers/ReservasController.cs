@@ -34,11 +34,12 @@ namespace WebApi.Controllers
         }
 
         // GET: api/Reservas/5
+        [NoExistenteExceptionFilter]
         public Reserva Get(int id)
         {
             Reserva reserva;
             if (!repository.TryGet(id, out reserva))
-                throw new HttpResponseException(new HttpResponseMessage(HttpStatusCode.NotFound));
+                throw new NoExistenteException("Reserva no existente.");
             return reserva;
         }
 

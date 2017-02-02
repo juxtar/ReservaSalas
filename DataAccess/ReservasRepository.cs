@@ -84,6 +84,8 @@ namespace DataAccess
         public bool TryGet(int id, out Reserva reserva)
         {
             reserva = db.Set<Reserva>().Find(id);
+            if (reserva == null)
+                return false;
             db.Entry(reserva).Reference(r => r.Sala).Load();
             db.Entry(reserva).Reference(r => r.Responsable).Load();
             db.Entry(reserva).Reference(r => r.Encuesta).Load();

@@ -73,6 +73,8 @@ namespace ReservaSalas.Servicios
                 throw new EncuestaInvalidaException("Ya se realizó la encuesta para esta reserva.");
             if (reserva.Fin > DateTime.Now)
                 throw new EncuestaInvalidaException("La encuesta se debe realizar una vez caducada la reserva.");
+            if (reserva.Anulada)
+                throw new EncuestaInvalidaException("No se puede realizar una encuesta sobre una reserva anulada.");
             reserva.Encuesta = encuesta;
             return ActualizarReserva(reserva, idEmpleado, false);
         }
