@@ -3,3 +3,4 @@ export * from './user';
 export * from './reserva';
 export * from './empleado';
 export * from './password';
+export * from './encuesta';

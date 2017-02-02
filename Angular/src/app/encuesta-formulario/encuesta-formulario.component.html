@@ -1,0 +1,46 @@
+<td-layout-card-over cardWidth="35" cardTitle="Encuesta">
+  <form #encuestaform="ngForm" (ngSubmit)="onSubmit()">
+    <!-- PreparacionYLimpieza -->
+    <div layout="column" layout-margin>
+      <label style="margin-left: 1em;" class="md-body-1">Preparación y Limpieza</label>
+      <div layout="row" layout-margin>
+        <md-button-toggle-group name="preparacionylimpieza" [(ngModel)]="encuesta.PreparacionYLimpieza" required>
+          <md-button-toggle value="0">Regular</md-button-toggle>
+          <md-button-toggle value="1">Buena</md-button-toggle>
+          <md-button-toggle value="2">Muy Buena</md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+    </div>
+    <div layout="column" layout-margin>
+      <!-- MaterialesBrindados -->
+      <div flex>
+        <md-slide-toggle color="primary" [(ngModel)]="encuesta.MaterialesBrindados" name="materialesbrindados">
+          Materiales Brindados
+        </md-slide-toggle>
+      </div>
+      <!-- ServicioATiempo -->
+      <div flex>
+        <md-slide-toggle color="primary" [(ngModel)]="encuesta.ServicioATiempo" name="servicioatiempo">
+          Servicio A Tiempo
+        </md-slide-toggle>
+      </div>
+      <!-- ServicioAGusto -->
+      <div flex>
+        <md-slide-toggle color="primary" [(ngModel)]="encuesta.ServicioAGusto" name="servicioagusto">
+          Servicio A Gusto
+        </md-slide-toggle>
+      </div>
+    </div>
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <textarea md-input placeholder="Observaciones" name="observaciones" [(ngModel)]="encuesta.Observacion"></textarea>
+      </md-input-container>
+    </div>
+    <md-divider></md-divider>
+    <div class="inset">
+      <span flex></span>
+      <button type="submit" md-raised-button color="primary" [disabled]="!encuestaform.form.valid">Guardar</button>
+      <button type="button" md-button routerLink="/encuestas">Volver</button>
+    </div>
+  </form>
+</td-layout-card-over>

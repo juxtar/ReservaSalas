@@ -68,6 +68,14 @@ export class ReservasService {
       })
   }
 
+  postEncuesta(idReserva: number, encuesta: Encuesta): Promise<Reserva> {
+    return this.http.post(API_URL + `/api/Reservas/${idReserva}/Encuesta`, encuesta, this.options)
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as Reserva;
+      })
+  }
+
   deleteReserva(id: number): Promise<Response> {
     return this.http.delete(API_URL + `/api/Reservas/${id}`, this.options)
       .toPromise();

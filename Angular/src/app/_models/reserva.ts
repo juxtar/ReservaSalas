@@ -1,5 +1,6 @@
 import { Sala } from './sala';
 import { Empleado } from './empleado';
+import { Encuesta } from './encuesta';
 
 export class Reserva {
     ID?: number;
@@ -13,4 +14,5 @@ export class Reserva {
     Almuerzo: boolean;
     Proyector: boolean;
     Anulada?: boolean;
+    Encuesta?: Encuesta;
 }
