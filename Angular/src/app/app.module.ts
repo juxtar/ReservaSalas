@@ -6,6 +6,8 @@ import { HttpModule, RequestOptions } from '@angular/http';
 import { CovalentCoreModule } from '@covalent/core';
 import { CovalentDynamicFormsModule } from '@covalent/dynamic-forms';
 import { Md2Module } from 'md2';
+import { MomentModule } from 'angular2-moment';
+import 'moment/locale/es';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +37,8 @@ import { ConfirmPasswordDirective } from './_utils/confirmpassword.directive';
     ReservaFormularioComponent,
     ReservaDetailComponent,
     AccountComponent,
+    EncuestasComponent,
+    EncuestaFormularioComponent,
     ConfirmPasswordDirective
   ],
   imports: [
@@ -44,7 +48,8 @@ import { ConfirmPasswordDirective } from './_utils/confirmpassword.directive';
     HttpModule,
     CovalentCoreModule.forRoot(),
     CovalentDynamicFormsModule.forRoot(),
-    Md2Module.forRoot()
+    Md2Module.forRoot(),
+    MomentModule
   ],
   providers: [
     AuthGuard,

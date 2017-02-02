@@ -19,6 +19,7 @@ export class AppComponent {
     _routes: MenuRoute[] = [
         { route: '/salas', title: 'Salas', icon: 'home', auth: true},
         { route: '/reservas', title: 'Reservas', icon: 'assignment', auth: false },
+        { route: '/encuestas', title: 'Encuestas', icon: 'thumbs_up_down', auth: true },
         { route: '/account', title: 'Mi Cuenta', icon: 'account_circle', auth: true },
         { route: '/login', title: 'Cerrar sesión', icon: 'power_settings_new', auth: true },
     ]

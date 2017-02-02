@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, Response, RequestOptions } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
-import { Reserva } from '../_models';
+import { Reserva, Encuesta } from '../_models';
 import { AuthenticationService } from './authentication.service';
 import { API_URL } from '../httpconfig';
 
@@ -43,6 +43,17 @@ export class ReservasService {
                 `&Anulada=${anulada}` + 
                 `&Caducada=${caducada}`;
     return this.http.get(API_URL + query)
+        .toPromise()
+        .then((response: Response) => {
+          return response.json() as Reserva[];
+        });
+  }
+
+  getMisReservas(encuestadas?: boolean): Promise<Reserva[]> {
+    let query = '/api/Reservas/MisReservas';
+    if (encuestadas != null)
+      query += `?encuestada=${encuestadas}`;
+    return this.http.get(API_URL + query, this.options)
         .toPromise()
         .then((response: Response) => {
           return response.json() as Reserva[];
