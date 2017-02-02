@@ -40,6 +40,7 @@ namespace DataAccess
         public IEnumerable<Reserva> GetFiltered(int? idSala, int? idResponsable,
                     bool? anulada, bool? caducada, bool? encuestada)
         {
+            var now = DateTime.Now.ToUniversalTime();
             var query = from r in db.Set<Reserva>()
                         select r;
             if (idSala != null)
@@ -57,7 +58,8 @@ namespace DataAccess
             if (caducada != null)
                 query = from r in query
                         where caducada.Value ?
-                            r.Fin <= DateTime.Now : r.Fin > DateTime.Now
+                            r.Fin <= now :
+                            r.Fin > now
                         select r;
             if (encuestada != null)
                 query = from r in query
