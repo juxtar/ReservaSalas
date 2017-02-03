@@ -31,4 +31,12 @@ export class UserService {
     return this.http.post(API_URL + '/api/Accounts/ChangePassword', password, {headers: this.headers})
       .toPromise();
   }
+
+  createUser(user: User): Promise<User> {
+    return this.http.post(API_URL + '/api/Accounts/Create', user, {headers: this.headers})
+      .toPromise()
+      .then((response: Response) => {
+        return response.json() as User;
+      })
+  }
 }

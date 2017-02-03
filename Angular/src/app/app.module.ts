@@ -25,6 +25,7 @@ import { AccountComponent } from './account/account.component';
 import { EncuestasComponent } from './encuestas/encuestas.component';
 import { EncuestaFormularioComponent } from './encuesta-formulario/encuesta-formulario.component';
 import { EqualValidator } from './_utils/validate-equal.directive';
+import { RegistroComponent } from './registro/registro.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { EqualValidator } from './_utils/validate-equal.directive';
     AccountComponent,
     EncuestasComponent,
     EncuestaFormularioComponent,
-    EqualValidator
+    EqualValidator,
+    RegistroComponent
   ],
   imports: [
     AppRoutingModule,

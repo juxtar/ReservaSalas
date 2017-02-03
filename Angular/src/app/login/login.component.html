@@ -1,6 +1,5 @@
 <td-layout-card-over *tdLoading="'loggingIn'" cardWidth="25">
-  <md-card-title>Login</md-card-title>
-  <md-card-subtitle>sign in via your current corporate account</md-card-subtitle>
+  <md-card-title>Iniciar sesión</md-card-title>
   <md-divider></md-divider>
   <md-card-content>
     <form #loginForm="ngForm">
@@ -21,13 +20,13 @@
           <md-hint align="start">
             <span [hidden]="!passControl.errors?.required || passControl.pristine" class="tc-red-600">Required</span>
           </md-hint>
-          <md-hint align="end">Something hard to guess</md-hint>
         </md-input-container>
       </div>
     </form>
   </md-card-content>
   <md-divider></md-divider>
   <md-card-actions layout="row">
-    <button flex md-raised-button color="accent" [disabled]="!loginForm.form.valid" (click)="login()">Sign In</button>
+    <button flex md-raised-button color="accent" [disabled]="!loginForm.form.valid" (click)="login()">Iniciar sesión</button>
+    <button flex md-raised-button routerLink="/registro">Registrarse</button>
   </md-card-actions>
 </td-layout-card-over>

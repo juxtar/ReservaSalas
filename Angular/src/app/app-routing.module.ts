@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SalasComponent } from './salas/salas.component';
 import { ReservasComponent } from './reservas/reservas.component';
 import { LoginComponent } from './login/login.component';
+import { RegistroComponent } from './registro/registro.component';
 import { SalaFormularioComponent } from './sala-formulario/sala-formulario.component';
 import { ReservaFormularioComponent } from './reserva-formulario/reserva-formulario.component';
 import { ReservaDetailComponent } from './reserva-detail/reserva-detail.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
     { path: 'reservas/encuesta/:id', component: EncuestaFormularioComponent, canActivate: [AuthGuard] },
     { path: 'encuestas', component: EncuestasComponent, canActivate: [AuthGuard] },
     { path: 'login', component: LoginComponent },
+    { path: 'registro', component: RegistroComponent },
     { path: 'account', component: AccountComponent, canActivate: [AuthGuard] },
 
     { path: '**', redirectTo: '/reservas' }

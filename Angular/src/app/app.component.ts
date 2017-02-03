@@ -24,9 +24,12 @@ export class AppComponent {
         { route: '/login', title: 'Cerrar sesión', icon: 'power_settings_new', auth: true },
     ]
 
-    _login: MenuRoute = 
+    _login: MenuRoute[] = [
         { route: '/login', title: 'Iniciar sesión',
-          icon: 'input', auth: false }
+          icon: 'input', auth: false },
+        { route: '/registro', title: 'Registrarse',
+          icon: 'input', auth: false },
+    ];
     
     constructor(
         private router: Router,
@@ -38,6 +41,6 @@ export class AppComponent {
             return this._routes;
         else
             return this._routes.filter(value => !value.auth)
-                .concat([this._login]);
+                .concat(this._login);
     }
 }

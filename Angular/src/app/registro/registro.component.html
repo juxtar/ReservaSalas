@@ -1,0 +1,97 @@
+<td-layout-card-over cardWidth="35" cardTitle="Crear una cuenta">
+  <form #userform="ngForm" (ngSubmit)="onSubmit()">
+    <!-- Nombre -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="usuario.FirstName" name="nombre" maxlength="30"
+        #nombre="ngModel" placeholder="Nombre" required />
+        <md-hint *ngIf="nombre.errors && (nombre.dirty || nombre.touched)" class="tc-red-600">
+          <span [hidden]="!nombre.errors.required">
+            Debe ingresar su nombre
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Apellido -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="usuario.LastName" name="apellido" maxlength="30"
+        #apellido="ngModel" placeholder="Apellido" required />
+        <md-hint *ngIf="apellido.errors && (apellido.dirty || apellido.touched)" class="tc-red-600">
+          <span [hidden]="!apellido.errors.required">
+            Debe ingresar su apellido
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Usuario -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="text" [(ngModel)]="usuario.UserName" name="username" maxlength="30"
+        #username="ngModel" placeholder="Usuario" required />
+        <md-hint *ngIf="username.errors && (username.dirty || username.touched)" class="tc-red-600">
+          <span [hidden]="!username.errors.required">
+            Debe ingresar un usuario
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Email -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="email" [(ngModel)]="usuario.Email" name="email" maxlength="30"
+        #email="ngModel" placeholder="Email" required
+        pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
+        <md-hint *ngIf="email.errors && (email.dirty || email.touched)" class="tc-red-600">
+          <span [hidden]="!email.errors.required">
+            Debe ingresar su email
+          </span>
+          <span [hidden]="!email.errors.pattern">
+            El email ingresado no es válido
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Contraseña -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="password" required minlength="6" placeholder="Contraseña"
+        validateEqual="confirmpassword" reverse="true"
+        [(ngModel)]="usuario.Password" name="password" #password="ngModel"/>
+        <md-hint *ngIf="password.errors && (password.dirty || password.touched)" class="tc-red-600">
+          <span [hidden]="!password.errors.required">
+            Debe ingresar una contraseña
+          </span>
+          <span [hidden]="!password.errors.minlength">
+            La contraseña debe contener al menos 6 caracteres
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    <!-- Confirmar Contraseña -->
+    <div layout="row" layout-margin>
+      <md-input-container flex>
+        <input md-input type="password" required minlength="6" placeholder="Confirmar contraseña"
+        validateEqual="password"
+        [(ngModel)]="usuario.ConfirmPassword" name="confirmpassword" #confirmpassword="ngModel"/>
+        <md-hint *ngIf="confirmpassword.errors && (confirmpassword.dirty || confirmpassword.touched)" class="tc-red-600">
+          <span [hidden]="!confirmpassword.errors.required">
+            Debe confirmar la contraseña
+          </span>
+          <span [hidden]="!confirmpassword.errors.minlength">
+            La contraseña debe contener al menos 6 caracteres
+          </span>
+          <span [hidden]="!confirmpassword.errors.validateEqual || confirmpassword.errors.minlength">
+            Las contraseñas ingresadas no coinciden
+          </span>
+        </md-hint>
+      </md-input-container>
+    </div>
+    
+    <md-divider></md-divider>
+    <div class="inset">
+      <span flex></span>
+      <button type="submit" md-raised-button color="primary" [disabled]="!userform.form.valid">Registrarse</button>
+    </div>
+  </form>
+</td-layout-card-over>
