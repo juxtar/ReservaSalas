@@ -50,7 +50,7 @@ export class ReservasService {
   }
 
   getMisReservas(encuestadas?: boolean): Promise<Reserva[]> {
-    let query = '/api/Reservas/MisReservas';
+    let query = '/api/Reservas';
     if (encuestadas != null)
       query += `?encuestada=${encuestadas}`;
     return this.http.get(API_URL + query, this.options)
