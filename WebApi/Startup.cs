@@ -27,7 +27,7 @@ namespace WebApi
 
             ConfigureOAuthTokenConsumption(app);
 
-            ConfigureWebApi(httpConfig);
+            //ConfigureWebApi(httpConfig);
 
             app.UseWebApi(httpConfig);
         }

@@ -11,7 +11,7 @@ namespace WebApi
         public static void Register(HttpConfiguration config)
         {
             // Configuración y servicios de API web
-            var cors = new EnableCorsAttribute("*", "*", "*");
+            var cors = new EnableCorsAttribute("http://localhost:4200", "*", "*");
             config.EnableCors(cors);
 
             // Rutas de API web
@@ -22,18 +22,11 @@ namespace WebApi
                 routeTemplate: "api/Accounts/{action}/{id}",
                 defaults: new { controller = "Accounts", action = "Me", id = RouteParameter.Optional }
             );
-
-            config.Routes.MapHttpRoute(
-                name: "CustomRoutes",
-                routeTemplate: "api/{controller}/{action}/{id}",
-                defaults: new { id = RouteParameter.Optional },
-                constraints: new { action = @"^[A-Za-z]+$" }
-            );
-
+            
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional, action = "Get" }
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }
