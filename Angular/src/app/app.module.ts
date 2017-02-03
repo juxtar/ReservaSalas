@@ -24,7 +24,7 @@ import { ReservaDetailComponent } from './reserva-detail/reserva-detail.componen
 import { AccountComponent } from './account/account.component';
 import { EncuestasComponent } from './encuestas/encuestas.component';
 import { EncuestaFormularioComponent } from './encuesta-formulario/encuesta-formulario.component';
-import { ConfirmPasswordDirective } from './_utils/confirmpassword.directive';
+import { EqualValidator } from './_utils/validate-equal.directive';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import { ConfirmPasswordDirective } from './_utils/confirmpassword.directive';
     AccountComponent,
     EncuestasComponent,
     EncuestaFormularioComponent,
-    ConfirmPasswordDirective
+    EqualValidator
   ],
   imports: [
     AppRoutingModule,

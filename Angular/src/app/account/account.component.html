@@ -46,7 +46,7 @@
       </md-input-container>
       <md-input-container flex>
         <input md-input type="password" required minlength="6" placeholder="Nueva contraseña"
-        (change)="passform.form.controls.confirmpassword.updateValueAndValidity()"
+        validateEqual="confirmpassword" reverse="true"
         [(ngModel)]="newPassword.NewPassword" name="newpassword" #newpassword="ngModel"/>
         <md-hint *ngIf="newpassword.errors && (newpassword.dirty || newpassword.touched)" class="tc-red-600">
           <span [hidden]="!newpassword.errors.required">
@@ -59,7 +59,7 @@
       </md-input-container>
       <md-input-container flex>
         <input md-input type="password" required minlength="6" placeholder="Confirmar nueva contraseña"
-        [confirmPassword]="newPassword.NewPassword"
+        validateEqual="newpassword"
         [(ngModel)]="newPassword.ConfirmPassword" name="confirmpassword" #confirmpassword="ngModel"/>
         <md-hint *ngIf="(confirmpassword.errors) && (confirmpassword.dirty || confirmpassword.touched)" class="tc-red-600">
           <span [hidden]="!confirmpassword.errors.required">
@@ -68,7 +68,7 @@
           <span [hidden]="!confirmpassword.errors.minlength">
             La contraseña debe contener al menos 6 caracteres
           </span>
-          <span [hidden]="!confirmpassword.errors.confirmPassword">
+          <span [hidden]="!confirmpassword.errors.validateEqual || confirmpassword.errors.minlength">
             Las contraseñas ingresadas no coinciden
           </span>
         </md-hint>
